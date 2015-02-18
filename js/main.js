@@ -89,13 +89,13 @@ window.onload = function()
                 dragon.body.velocity.x = walkSpeed;
                 dragon.animations.play('flyRight');
             }
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor() && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+            else if (game.input.keyboard.onDown(Phaser.Keyboard.UP) && dragon.body.onFloor() && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
             {
                 dragon.body.velocity.x = 0 - walkSpeed;
                 dragon.body.velocity.y = baseJump;
                 dragon.animations.play('takeOffLeft');
             }
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor())
+            else if (game.input.keyboard.onDown(Phaser.Keyboard.UP) && dragon.body.onFloor())
             {
                 dragon.body.velocity.x = walkSpeed;
                 dragon.body.velocity.y = baseJump;
@@ -109,13 +109,13 @@ window.onload = function()
             }
         }
         
-        if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        if (game.input.keyboard.onDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
             dragon.body.velocity.y = flap;
             dragon.animations.play('flyRight');
             dragon.body.velocity.x = flySpeed;
         }
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.Left))
+        else if(game.input.keyboard.onDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
