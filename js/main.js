@@ -7,7 +7,6 @@ window.onload = function()
     
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
 
-    var people;
     var dragon;
     var walkSpeed = 150;
     var flySpeed = 250;
@@ -25,6 +24,8 @@ window.onload = function()
         
         game.load.image('grass', 'assets/grass.png');
         game.load.image('BG', 'assets/grassyBG.png');
+        game.load.image('forest', 'assets/forest_background_by_jbjdesigns-d5mgjm3.png');
+        game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
         
         game.load.audio('reunited', 'assets/Reunited.mp3');
     }
@@ -33,8 +34,14 @@ window.onload = function()
     function create() 
     {
         game.world.setBounds(0, 0, 3200, 1824);
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-        background = game.add.sprite(0,0, 'BG');
+        game.physics.startSystem(Phaser.Physics.ARCADE)
+        
+        //tilemap setup
+        map = game.add.tilemap('map');
+        // map3 = game.add.tilemap('map');
+        map.addTilesetImage('forest_background_by_jbjdesigns-d5mgjm3', 'forest');
+        background = map.createLayer('forestBG');
+        background.resizeWorld();
         game.stage.backgroundColor = '#2d2d2d';
         
         //playing music
