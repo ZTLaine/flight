@@ -124,69 +124,16 @@ window.onload = function()
         else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
             flap.play();
+            dragon.body.velocity.y = flap;
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
         }
-        else if (!dragon.body.onFloor())
+        else (!dragon.body.onFloor())
         {
             dragon.animations.stop();
             dragon.frame = 20;
         }
    
      }
-     
-    /* function arrowRelease(target)
-     {
-        arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
-        game.physics.arcade.enable(arrow);
-        arrow.enableBody = true;
-        arrow.physicsBodyType = Phaser.Physics.ARCADE;
-        arrow.body.allowRotation = false; 
-        arrow.scale.set(.9);
-        
-        x = game.input.mousePointer.x;
-        y = game.input.mousePointer.y;
-        arrow.rotation = game.physics.arcade.moveToXY(arrow, x, y, 120);
-        arrow.rotation = game.physics.arcade.angleBetween(arrow, target);
-        
-        arrShoot = game.add.tween(arrow.scale);
-        arrShoot.to({x: .25, y: .25}, 1000);
-        arrShoot.start();
-     }
-     
-     function collisionHandler (arrow, people) 
-    {
-        if(people.frame == 12 || people.frame == 13 || people.frame == 14)
-        {
-            cats++;
-            counter++;
-        }
-        else
-        {
-            humans++;
-            counter++;
-        }
-        if(counter%2 == 0)
-        {
-            if(cats == 2)
-            {
-                kittens++;
-                cats = 0;
-            }
-            else if(humans == 2)
-            {
-                couples++;
-                humans = 0;
-            }
-            else if(cats == 1 && humans ==1)
-            {
-                catPeople++;
-                cats = 0;
-                humans = 0;
-            }
-        }
-        people.kill();
-        arrow.kill();
-    } */
      
 };
