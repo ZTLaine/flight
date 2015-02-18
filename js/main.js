@@ -121,7 +121,7 @@ window.onload = function()
                 dragon.body.velocity.x = -flySpeed;
             }
         }
-        else
+        else if (!dragon.body.onFloor())
         {
             dragon.animations.stop();
             dragon.frame = 20;
