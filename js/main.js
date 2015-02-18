@@ -21,7 +21,7 @@ window.onload = function()
     
     function preload() 
     {
-        game.load.spritesheet('sindra', 'assets/dragonProtag', 200, 150, 39);
+        game.load.spritesheet('sindra', 'assets/dragonProtag.png', 200, 150, 39);
         
         game.load.image('grass', 'assets/grass.png');
         game.load.image('BG', 'assets/grassyBG.png');
