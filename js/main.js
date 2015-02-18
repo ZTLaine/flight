@@ -8,83 +8,53 @@ window.onload = function()
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
 
     var people;
-    var blkCat;
-    var arrow;
+    var dragon;
+    var walkSpeed = 150;
+    var flySpeed = 250;
+    var baseJump = -100;
+    var flap = -150;
+    var facing = "right";
+    
     var reunited;
     var map;
     var background;
-    var x;
-    var y;
-    var arrShoot;
-    var counter = 0;
-    var humans = 0;
-    var cats = 0;
-    var couples = 0;
-    var kittens = 0;
-    var catPeople = 0;
     
     function preload() 
     {
-        game.load.spritesheet('blkCat', 'assets/blkCatJump.png', 32, 32, 15);
-        game.load.spritesheet('characters', 'assets/characters.png', 37, 40, 15)
-        game.load.image('arrow', 'assets/arrowRight.png');
+        game.load.spritesheet('sindra', 'assets/dragonProtag.png', 200, 150, 39);
+        
         game.load.image('grass', 'assets/grass.png');
         game.load.image('BG', 'assets/grassyBG.png');
-        game.load.tilemap('map', 'assets/vDayBG.json', null, Phaser.Tilemap.TILED_JSON);
         
-        game.load.audio('reunited', 'assets/Reunited1.mp3');
+        game.load.audio('reunited', 'assets/Reunited.mp3');
     }
     
     
     function create() 
     {
-        game.world.setBounds(0, 0, 800, 600);
+        game.world.setBounds(0, 0, 3200, 1824);
         game.physics.startSystem(Phaser.Physics.ARCADE);
         background = game.add.sprite(0,0, 'BG');
+        game.stage.backgroundColor = '#2d2d2d';
         
         //playing music
         reunited = game.add.audio('reunited');
         reunited.loop = true;
         reunited.play();
         
-        people = game.add.group();
-        game.physics.arcade.enable(people);
-        people.enableBody = true;
-        people.physicsBodyType = Phaser.Physics.ARCADE;
-    //    people.body.allowRotation = false;
-    //    people.body.collideWorldBounds = true;
-        // allows mouse clicks
-    //    background.events.onInputDown.add(arrowRelease, this);
+        dragon = game.add.sprite(32, game.world.height - 150, 'sindra');
+        game.physics.arcade.enable(dragon);
+        dragon.body.bounce.y = 0.2;
+        dragon.body.gravity.y = 1000;
+        dragon.anchor.setTo(.5,.5);
+        game.camera.follow(dragon);
+        dragon.body.collideWorldBounds = true;
+        dragon.scale.set(.75);
         
-        for (var i = 0; i < 20; i++)
-        {
-            var c = people.create(game.rnd.integerInRange(100, 770), game.rnd.integerInRange(0, 570), 'characters', game.rnd.integerInRange(0, 14));
-            c.name = 'char' + i;
-            c.body.immovable = true;
-            c.inputEnabled = true;
-            c.scale.set(2);
-            
-            c.events.onInputDown.add(arrowRelease, this);
-        }
-        
-        /*blkCat = game.add.sprite(32, game.world.height - 150, 'blkCat');
-        game.physics.arcade.enable(blkCat);
-        blkCat.body.bounce.y = 0.2;
-        blkCat.body.collideWorldBounds = true;
-        //girl.scale.set(2);*/
-        
-    /*    arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
-        game.physics.arcade.enable(arrow);
-        arrow.enableBody = true;
-        arrow.physicsBodyType = Phaser.Physics.ARCADE;
-        arrow.body.allowRotation = false; */
-        
-        
-        blkCat.animations.add('left', [0, 1, 2], 10, true);
-        blkCat.animations.add('right', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], 10, true); 
-        
-       //blkCat.animations.play('right', 10, true);
-
+        dragon.animations.add('takeOffRight', [14, 15, 16], 10, false);
+        dragon.animations.add('flyRight', [17, 18, 19], 10, false);
+        dragon.animations.add('landRight', [20, 21, 22, 23, 24], 10, false);
+        dragon.animations.add('death', [26, 27, 28, 29, 30, 31], 10, false);
 
        game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
         
@@ -92,24 +62,80 @@ window.onload = function()
     
     function update() 
     {
-        game.physics.arcade.collide(arrow, people, collisionHandler, null, this);
-        game.physics.arcade.collide(people, people);
+        //game.physics.arcade.collide(arrow, people, collisionHandler, null, this);
+        //game.physics.arcade.collide(people, people);
+        dragon.body.velocity.x = 0;
+        
+        if(dragon.body.onFloor())
+        {
+            if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+            {
+                // Move to the left
+                dragon.scale.x *= -1;
+                dragon.body.velocity.x = (0 - walkSpeed);
+                dragon.animations.play('flyRight');
+                dragon.facing = "left";
+            }
+            else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+            {
+                dragon.body.velocity.x = walkSpeed;
+                dragon.animations.play('flyRight');
+                dragon.facing = "right";
+            }
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor() && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+            {
+                dragon.body.velocity.x = walkSpeed;
+                dragon.body.velocity.y = baseJump;
+                dragon.scale.x *= -1;
+                dragon.animations.play('takeOffRight');
+                dragon.facing = "left";
+            }
+            else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor())
+            {
+                dragon.body.velocity.x = walkSpeed;
+                dragon.body.velocity.y = baseJump;
+                dragon.animations.play('takeOffRight');
+                dragon.facing = "right";
+            }
+            else
+            {
+                // Stand still
+                dragon.animations.stop();
+                dragon.frame = 7;
+            }
+        }
+        
+        if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
+        {
+            dragon.body.velocity.y = flap;
+            
+            if(dragon.facing == "right")
+            {
+                dragon.animations.play('flyRight');
+                dragon.body.velocity.x = flySpeed;
+            }
+            if(dragon.facing == "left")
+            {
+                dragon.scale.x *= -1;
+                dragon.animations.play('flyRight');
+                dragon.body.velocity.x = -flySpeed;
+            }
+        }
+        else if (!dragon.body.onFloor())
+        {
+            dragon.animations.stop();
+            dragon.frame = 20;
+        }
+       
+    //    if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
+    //    {
+    //        dragon.body.velocity.y = -350;
+    //    }
+
         
      }
      
-     function arrowCreate()
-     {
-        arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
-        game.physics.arcade.enable(arrow);
-        arrow.enableBody = true;
-        arrow.physicsBodyType = Phaser.Physics.ARCADE;
-        arrow.body.allowRotation = false; 
-        arrow.scale.set(.25);
-        
-        arrow.events.onInputDown.add(arrowRelease, this);
-     }
-     
-     function arrowRelease(target)
+    /* function arrowRelease(target)
      {
         arrow = game.add.sprite(game.world.centerX, game.world.centerY, 'arrow');
         game.physics.arcade.enable(arrow);
@@ -161,6 +187,6 @@ window.onload = function()
         }
         people.kill();
         arrow.kill();
-    }
+    } */
      
 };
