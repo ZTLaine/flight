@@ -5,7 +5,7 @@ window.onload = function()
     
     "use strict";
     
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
+    var game = new Phaser.Game(3200, 1824, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
 
     var people;
     var dragon;
@@ -25,7 +25,6 @@ window.onload = function()
         
         game.load.image('grass', 'assets/grass.png');
         game.load.image('BG', 'assets/grassyBG.png');
-        game.load.tilemap('map', 'assets/vDayBG.json', null, Phaser.Tilemap.TILED_JSON);
         
         game.load.audio('reunited', 'assets/Reunited1.mp3');
     }
