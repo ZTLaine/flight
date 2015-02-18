@@ -30,8 +30,8 @@ window.onload = function()
         game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
         
         game.load.audio('reunited', 'assets/Reunited.mp3');
-        game.load.audio('flap', 'assets/flap.mp3');
-        game.load.audio('bgm', 'assets/DeathIsJustAnotherPath.mp3');
+    //    game.load.audio('flap', 'assets/flap.mp3');
+    //    game.load.audio('bgm', 'assets/DeathIsJustAnotherPath.mp3');
     }
     
     
@@ -46,13 +46,12 @@ window.onload = function()
         map.addTilesetImage('forest_background_by_jbjdesigns-d5mgjm3', 'forest');
         background = map.createLayer('forestBG');
         background.resizeWorld();
-        game.stage.backgroundColor = '#2d2d2d';
         
         //playing music
-        bgm = game.add.audio('bgm');
-        flap = game.add.audio('flap');
-        bgm.loop = true;
-        bgm.play();
+    //    bgm = game.add.audio('bgm');
+    //    flap = game.add.audio('flap');
+    //    bgm.loop = true;
+    //    bgm.play();
         
         dragon = game.add.sprite(32, game.world.height - 150, 'sindra');
         game.physics.arcade.enable(dragon);
