@@ -49,7 +49,7 @@ window.onload = function()
         dragon.anchor.setTo(.5,.5);
         game.camera.follow(dragon);
         dragon.body.collideWorldBounds = true;
-        //dragon.scale.set(2);
+        dragon.scale.set(.75);
         
         dragon.animations.add('takeOffRight', [14, 15, 16], 10, false);
         dragon.animations.add('flyRight', [17, 18, 19], 10, false);
