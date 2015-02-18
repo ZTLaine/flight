@@ -20,7 +20,7 @@ window.onload = function()
     
     function preload() 
     {
-        game.load.spritesheet('sindra', 'assets/dragonProtag.png', 200, 150, 39);
+        game.load.spritesheet('sindra', 'assets/dragonProtag1.png', 200, 150, 52);
         
         game.load.image('grass', 'assets/grass.png');
         game.load.image('BG', 'assets/grassyBG.png');
@@ -58,9 +58,12 @@ window.onload = function()
         dragon.body.collideWorldBounds = true;
         dragon.scale.set(.75);
         
-        dragon.animations.add('takeOffRight', [14, 15, 16], 10, false);
+        dragon.animations.add('takeOffRight', [13, 14, 15, 16], 10, false);
         dragon.animations.add('flyRight', [17, 18, 19], 10, false);
         dragon.animations.add('landRight', [20, 21, 22, 23, 24], 10, false);
+        dragon.animations.add('takeOffLeft', [50, 49, 48, 47], 10, false);
+        dragon.animations.add('flyLeft', [46, 45, 44], 10, false);
+        dragon.animations.add('landLeft', [43, 42, 41, 40, 39], 10, false);
         dragon.animations.add('death', [26, 27, 28, 29, 30, 31], 10, false);
 
        game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
@@ -78,31 +81,25 @@ window.onload = function()
             if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
             {
                 // Move to the left
-                dragon.scale.x *= -1;
                 dragon.body.velocity.x = (0 - walkSpeed);
-                dragon.animations.play('flyRight');
-                dragon.facing = "left";
+                dragon.animations.play('flyLeft');
             }
             else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
             {
                 dragon.body.velocity.x = walkSpeed;
                 dragon.animations.play('flyRight');
-                dragon.facing = "right";
             }
             else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor() && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
             {
-                dragon.body.velocity.x = walkSpeed;
+                dragon.body.velocity.x = 0 - walkSpeed;
                 dragon.body.velocity.y = baseJump;
-                dragon.scale.x *= -1;
-                dragon.animations.play('takeOffRight');
-                dragon.facing = "left";
+                dragon.animations.play('takeOffLeft');
             }
             else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor())
             {
                 dragon.body.velocity.x = walkSpeed;
                 dragon.body.velocity.y = baseJump;
                 dragon.animations.play('takeOffRight');
-                dragon.facing = "right";
             }
             else
             {
@@ -112,34 +109,23 @@ window.onload = function()
             }
         }
         
-        if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
+        if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
             dragon.body.velocity.y = flap;
-            
-            if(dragon.facing == "right")
-            {
-                dragon.animations.play('flyRight');
-                dragon.body.velocity.x = flySpeed;
-            }
-            if(dragon.facing == "left")
-            {
-                dragon.scale.x *= -1;
-                dragon.animations.play('flyRight');
-                dragon.body.velocity.x = -flySpeed;
-            }
+            dragon.animations.play('flyRight');
+            dragon.body.velocity.x = flySpeed;
+        }
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        {
+            dragon.animations.play('flyLeft');
+            dragon.body.velocity.x = -flySpeed;
         }
         else if (!dragon.body.onFloor())
         {
             dragon.animations.stop();
             dragon.frame = 20;
         }
-       
-    //    if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
-    //    {
-    //        dragon.body.velocity.y = -350;
-    //    }
-
-        
+   
      }
      
     /* function arrowRelease(target)
