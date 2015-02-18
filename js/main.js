@@ -15,6 +15,8 @@ window.onload = function()
     var facing = "right";
     
     var reunited;
+    var bgm;
+    var flap;
     var map;
     var background;
     
@@ -28,6 +30,8 @@ window.onload = function()
         game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
         
         game.load.audio('reunited', 'assets/Reunited.mp3');
+        game.load.audio('flap', 'assets/flap.mp3');
+        game.load.audio('bgm', 'assets/DeathIsJustAnotherPath.mp3');
     }
     
     
@@ -45,9 +49,10 @@ window.onload = function()
         game.stage.backgroundColor = '#2d2d2d';
         
         //playing music
-        reunited = game.add.audio('reunited');
-        reunited.loop = true;
-        reunited.play();
+        bgm = game.add.audio('bgm');
+        flap = game.add.audio('flap');
+        bgm.loop = true;
+        bgm.play();
         
         dragon = game.add.sprite(32, game.world.height - 150, 'sindra');
         game.physics.arcade.enable(dragon);
@@ -111,12 +116,14 @@ window.onload = function()
         
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
+            flap.play();
             dragon.body.velocity.y = flap;
             dragon.animations.play('flyRight');
             dragon.body.velocity.x = flySpeed;
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
+            flap.play();
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
         }
