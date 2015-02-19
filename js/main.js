@@ -100,7 +100,7 @@ window.onload = function()
             dragon.animations.play('flyRight');
             dragon.body.velocity.x = flySpeed;
         }
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.Left))
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
