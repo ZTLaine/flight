@@ -30,7 +30,7 @@ window.onload = function()
         game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
         
         game.load.audio('reunited', 'assets/Reunited.mp3');
-    //    game.load.audio('flap', 'assets/flap.mp3');
+        game.load.audio('flap', 'assets/flap.mp3');
     //    game.load.audio('bgm', 'assets/DeathIsJustAnotherPath.mp3');
     }
     
@@ -49,7 +49,7 @@ window.onload = function()
         
         //playing music
     //    bgm = game.add.audio('bgm');
-    //    flap = game.add.audio('flap');
+        flap = game.add.audio('flap');
     //    bgm.loop = true;
     //    bgm.play();
         
