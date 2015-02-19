@@ -95,12 +95,14 @@ window.onload = function()
             }
             else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor() && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
             {
+                console.log("JUMPING!");
                 dragon.body.velocity.x = 0 - walkSpeed;
                 dragon.body.velocity.y = baseJump;
                 dragon.animations.play('takeOffLeft');
             }
             else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor())
             {
+                console.log("JUMPING!");
                 dragon.body.velocity.x = walkSpeed;
                 dragon.body.velocity.y = baseJump;
                 dragon.animations.play('takeOffRight');
