@@ -1,57 +1,42 @@
-window.onload = function() 
+window.onload = function()
 {
     // You might want to start with a template that uses GameStates:
-    //     https://github.com/photonstorm/phaser/tree/master/resources/Project%20Templates/Basic
-    
+    // https://github.com/photonstorm/phaser/tree/master/resources/Project%20Templates/Basic
     "use strict";
-    
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
-
     var dragon;
     var walkSpeed = 150;
     var flySpeed = 250;
     var baseJump = -100;
     var flap = -150;
     var facing = "right";
-    
     var reunited;
-    var bgm;
-    var flap;
     var map;
     var background;
-    
-    function preload() 
+    function preload()
     {
         game.load.spritesheet('sindra', 'assets/dragonProtag1.png', 200, 150, 52);
-        
         game.load.image('grass', 'assets/grass.png');
         game.load.image('BG', 'assets/grassyBG.png');
         game.load.image('forest', 'assets/forest_background_by_jbjdesigns-d5mgjm3.png');
         game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
-        
         game.load.audio('reunited', 'assets/Reunited.mp3');
-        game.load.audio('flap', 'assets/flap.mp3');
-    //    game.load.audio('bgm', 'assets/DeathIsJustAnotherPath.mp3');
     }
-    
-    
-    function create() 
+    function create()
     {
         game.world.setBounds(0, 0, 3200, 1824);
         game.physics.startSystem(Phaser.Physics.ARCADE)
-        
         //tilemap setup
         map = game.add.tilemap('map');
         // map3 = game.add.tilemap('map');
         map.addTilesetImage('forest_background_by_jbjdesigns-d5mgjm3', 'forest');
         background = map.createLayer('forestBG');
         background.resizeWorld();
-        
+        game.stage.backgroundColor = '#2d2d2d';
         //playing music
-    //    bgm = game.add.audio('bgm');
-        flap = game.add.audio('flap');
-    //    bgm.loop = true;
-    //    bgm.play();
+        reunited = game.add.audio('reunited');
+        reunited.loop = true;
+        reunited.play();
         
         dragon = game.add.sprite(32, game.world.height - 150, 'sindra');
         game.physics.arcade.enable(dragon);
@@ -69,17 +54,13 @@ window.onload = function()
         dragon.animations.add('flyLeft', [46, 45, 44], 10, false);
         dragon.animations.add('landLeft', [43, 42, 41, 40, 39], 10, false);
         dragon.animations.add('death', [26, 27, 28, 29, 30, 31], 10, false);
-
-       game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
-        
+        game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
     }
-    
-    function update() 
+    function update()
     {
         //game.physics.arcade.collide(arrow, people, collisionHandler, null, this);
         //game.physics.arcade.collide(people, people);
         dragon.body.velocity.x = 0;
-        
         if(dragon.body.onFloor())
         {
             if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
@@ -95,14 +76,12 @@ window.onload = function()
             }
             else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor() && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
             {
-                console.log("JUMPING!");
                 dragon.body.velocity.x = 0 - walkSpeed;
                 dragon.body.velocity.y = baseJump;
                 dragon.animations.play('takeOffLeft');
             }
             else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor())
             {
-                console.log("JUMPING!");
                 dragon.body.velocity.x = walkSpeed;
                 dragon.body.velocity.y = baseJump;
                 dragon.animations.play('takeOffRight');
@@ -117,24 +96,20 @@ window.onload = function()
         
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-            flap.play();
             dragon.body.velocity.y = flap;
             dragon.animations.play('flyRight');
             dragon.body.velocity.x = flySpeed;
         }
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.Left))
         {
-            flap.play();
-            dragon.body.velocity.y = flap;
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
         }
-        else (!dragon.body.onFloor())
+        else if (!dragon.body.onFloor())
         {
             dragon.animations.stop();
             dragon.frame = 20;
         }
-   
-     }
-     
+    }
+         
 };
