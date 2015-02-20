@@ -108,6 +108,16 @@ window.onload = function()
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
         }
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        {
+            dragon.animations.play('flyLeft');
+            dragon.body.velocity.x = -flySpeed;
+        }
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        {
+            dragon.animations.play('flyLeft');
+            dragon.body.velocity.x = flySpeed;
+        }
         else if (!dragon.body.onFloor())
         {
             dragon.animations.stop();
