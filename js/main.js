@@ -92,7 +92,7 @@ window.onload = function()
         flap.volume = .5;
         flap.onDown.add(flapWait, this);
         
-        style = { font: "12px Arial", fill: "#ffffff", align: "center" };
+        style = { font: "12px Arial", fill: "#000000", align: "center" };
         goal = game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.');
         goal.fixedToCamera = true;
         
@@ -103,6 +103,7 @@ window.onload = function()
         if(eventTrigger(dragon, treeLine) && treeLineDone == false)
         {
             goal.text = 'Nothing to see up here...maybe you can try to smell something closer to the ground?';
+            treeLineDone == true;
         }
         
         if(dragon.body.onFloor())
