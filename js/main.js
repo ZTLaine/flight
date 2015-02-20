@@ -13,7 +13,7 @@ window.onload = function()
     var reunited;
     var map;
     var background;
-    var hasFlapped = false;
+   // var hasFlapped = false;
     
     function preload()
     {
@@ -100,14 +100,14 @@ window.onload = function()
         
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && hasflapped == false)
         {
-            hasFlapped = true;
+        //    hasFlapped = true;
             dragon.body.velocity.y = flap;
             dragon.animations.play('flyRight');
             dragon.body.velocity.x = flySpeed;
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && hasflapped == false)
         {
-            hasFlapped = true;
+        //    hasFlapped = true;
             dragon.body.velocity.y = flap;
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
@@ -127,7 +127,7 @@ window.onload = function()
             dragon.animations.stop();
             dragon.frame = 20;
         }
-        hasFlapped = false;
+    //    hasFlapped = false;
     }
          
 };
