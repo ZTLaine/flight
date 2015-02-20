@@ -121,19 +121,11 @@ window.onload = function()
         {
             dragon.frame = 18;
     //        dragon.animations.play('flyRight');
-            if(dragon.body.velocity.x < flySpeed)
-            {
-                dragon.body.velocity.x += 10;
-            }
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
             dragon.frame = 45;
     //        dragon.animations.play('flyLeft');
-            if(dragon.body.velocity.x > -flySpeed)
-            {
-                dragon.body.velocity.x -= 10;
-            }
         }
         else if (!dragon.body.onFloor())
         {
@@ -157,10 +149,20 @@ window.onload = function()
         if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
             dragon.animations.play('flyLeft');
+            
+            if(dragon.body.velocity.x > -flySpeed)
+            {
+                dragon.body.velocity.x -= 10;
+            }
         }
         if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
             dragon.animations.play('flyRight');
+            
+            if(dragon.body.velocity.x < flySpeed)
+            {
+                dragon.body.velocity.x += 10;
+            }
         }
         flapSound.play();
     }     
