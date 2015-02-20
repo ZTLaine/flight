@@ -199,6 +199,10 @@ window.onload = function()
         if(dragon.body.velocity.y < 0)
         {
             dragon.body.velocity.y += flapHeight;
+            if(dragon.body.velocity.y < flapHeight)
+            {
+                dragon.body.velocity.y = flapHeight;
+            }
         }
         else
         {
