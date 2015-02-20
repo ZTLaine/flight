@@ -9,8 +9,8 @@ window.onload = function()
     var walkSpeed = 100;
     var flySpeed = 350;
     var baseJump = -100;
-    var flapHeight = -150;
-    var facing = "right";
+    var flapHeight = -250;
+    var flapSound;
     var reunited;
     var map;
     var background;
@@ -24,7 +24,9 @@ window.onload = function()
         game.load.image('BG', 'assets/grassyBG.png');
         game.load.image('forest', 'assets/forest_background_by_jbjdesigns-d5mgjm3.png');
         game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
+        
         game.load.audio('reunited', 'assets/Reunited.mp3');
+        game.load.audio('flapping', 'assets/flap.mp3')
     }
     function create()
     {
@@ -42,6 +44,7 @@ window.onload = function()
         reunited = game.add.audio('reunited');
         reunited.loop = true;
         reunited.play();
+        flapSound = game.add.audio('flapping');
         
         dragon = game.add.sprite(32, game.world.height - 150, 'sindra');
         game.physics.arcade.enable(dragon);
@@ -145,5 +148,6 @@ window.onload = function()
     function flapWait()
     {
         dragon.body.velocity.y = flapHeight;
+        flapSound.play();
     }     
 };
