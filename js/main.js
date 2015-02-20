@@ -6,7 +6,7 @@ window.onload = function()
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
     var dragon;
     var gravity = 500;
-    var walkSpeed = 150;
+    var walkSpeed = 100;
     var flySpeed = 350;
     var baseJump = -100;
     var flapHeight = -150;
