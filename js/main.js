@@ -171,12 +171,12 @@ window.onload = function()
         flapSound = game.add.audio('flapping');
         flapSound.play();
         
-        if(dragon.body.velocity.x > -flySpeed && dragon.body.velocity.x < 0)
+        if(dragon.body.velocity.x > -flySpeed)
         {
             dragon.body.velocity.x -= 50;
             dragon.animations.play('flyLeft');
         }
-        if(dragon.body.velocity.x < flySpeed && dragon.body.velocity.x > 0)
+        if(dragon.body.velocity.x < flySpeed)
         {
             dragon.body.velocity.x += 50;
             dragon.animations.play('flyRight');
