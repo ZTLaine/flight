@@ -154,7 +154,7 @@ window.onload = function()
             {
                 dragon.body.velocity.x++;
             }
-        //    dragon.animations.stop();
+            dragon.animations.stop();
             dragon.frame = 20;
         }
     }
