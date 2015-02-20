@@ -102,7 +102,7 @@ window.onload = function()
     {
         if(eventTrigger(dragon, treeLine) && treeLineDone == false)
         {
-            goal.text = 'Nothing to see up here...maybe you can try to smell something closer to the ground?';
+            goal.text = 'Nothing to see up here...\nMaybe you can try to smell something closer to the ground?';
             treeLineDone == true;
         }
         
