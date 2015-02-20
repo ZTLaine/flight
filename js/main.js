@@ -13,6 +13,8 @@ window.onload = function()
     var reunited;
     var map;
     var background;
+    var hasFlapped = false;
+    
     function preload()
     {
         game.load.spritesheet('sindra', 'assets/dragonProtag1.png', 200, 150, 52);
@@ -96,23 +98,19 @@ window.onload = function()
             }
         }
         
-        if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && hasflapped == false)
         {
-            if(game.input.keyboard.isUp(Phaser.Keyboard.UP))
-            {
-                dragon.body.velocity.y = flap;
-                dragon.animations.play('flyRight');
-                dragon.body.velocity.x = flySpeed;
-            }
+            hasFlapped = true;
+            dragon.body.velocity.y = flap;
+            dragon.animations.play('flyRight');
+            dragon.body.velocity.x = flySpeed;
         }
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && hasflapped == false)
         {
-            if(game.input.keyboard.isUp(Phaser.Keyboard.UP))
-            {
-                dragon.body.velocity.y = flap;
-                dragon.animations.play('flyLeft');
-                dragon.body.velocity.x = -flySpeed;
-            }
+            hasFlapped = true;
+            dragon.body.velocity.y = flap;
+            dragon.animations.play('flyLeft');
+            dragon.body.velocity.x = -flySpeed;
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
@@ -129,6 +127,7 @@ window.onload = function()
             dragon.animations.stop();
             dragon.frame = 20;
         }
+        hasFlapped = false;
     }
          
 };
