@@ -64,7 +64,7 @@ window.onload = function()
         
         //  Create our Timer
         flapTimer = game.time.create(false);
-        flapTimer.add(500, flapWait, this);
+        flapTimer.add(100, flapWait, this);
         
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
     }
