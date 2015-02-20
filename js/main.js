@@ -57,11 +57,11 @@ window.onload = function()
         dragon.scale.set(.75);
         
         dragon.animations.add('takeOffRight', [13, 14, 15, 16], 10, false);
-        dragon.animations.add('flyRight', [17, 18, 19, 18], 10, false);
+        dragon.animations.add('flyRight', [17, 18, 19, 18], 5, false);
         dragon.animations.add('flyRightSlow', [17, 18, 19, 18], 5, false);
         dragon.animations.add('landRight', [20, 21, 22, 23, 24], 10, false);
         dragon.animations.add('takeOffLeft', [50, 49, 48, 47], 10, false);
-        dragon.animations.add('flyLeft', [46, 45, 44, 45], 10, false);
+        dragon.animations.add('flyLeft', [46, 45, 44, 45], 5, false);
         dragon.animations.add('flyLeftSlow', [46, 45, 44, 45], 5, false);
         dragon.animations.add('landLeft', [43, 42, 41, 40, 39], 10, false);
         dragon.animations.add('death', [26, 27, 28, 29, 30, 31], 10, false);
