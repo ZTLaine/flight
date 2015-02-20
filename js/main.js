@@ -14,6 +14,7 @@ window.onload = function()
     var map;
     var background;
     var hasFlapped = false;
+    var flapTimer;
     
     function preload()
     {
