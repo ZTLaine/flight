@@ -43,6 +43,7 @@ window.onload = function()
         //playing music
         reunited = game.add.audio('reunited');
         reunited.loop = true;
+        reunited.volume = .5;
         reunited.play();
         flapSound = game.add.audio('flapping');
         
