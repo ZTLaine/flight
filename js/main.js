@@ -196,7 +196,7 @@ window.onload = function()
             dragon.animations.play('takeOffRight');
         } 
         
-        dragon.body.velocity.y = flapHeight;
+        dragon.body.velocity.y += flapHeight;
         flapSound = game.add.audio('flapping');
         flapSound.play();
         
