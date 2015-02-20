@@ -92,7 +92,7 @@ window.onload = function()
         flap.volume = .5;
         flap.onDown.add(flapWait, this);
         
-        style = { font: "10px Arial", fill: "#ffffff", align: "center" };
+        style = { font: "15px Arial", fill: "#ffffff", align: "center" };
         goal = game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.', style);
         goal.fixedToCamera = true;
         
