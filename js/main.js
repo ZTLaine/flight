@@ -131,12 +131,12 @@ window.onload = function()
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
-            dragon.animations.play('flyLeft');
+            dragon.frame = 45;
             dragon.body.velocity.x = -flySpeed;
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-            dragon.animations.play('flyRight');
+            dragon.frame = 18;
             dragon.body.velocity.x = flySpeed;
         }
         else if (!dragon.body.onFloor())
@@ -150,6 +150,14 @@ window.onload = function()
     {
         dragon.body.velocity.y = flapHeight;
         flapSound = game.add.audio('flapping');
+        if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        {
+            dragon.animations.play('flyLeft');
+        }
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        {
+            dragon.animations.play('flyRight');
+        }
         flapSound.play();
     }     
 };
