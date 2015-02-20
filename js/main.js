@@ -14,8 +14,6 @@ window.onload = function()
     var reunited;
     var map;
     var background;
-//    var hasFlapped = false;
-//    var flapTimer;
     
     function preload()
     {
@@ -66,11 +64,9 @@ window.onload = function()
         dragon.animations.add('landLeft', [43, 42, 41, 40, 39], 10, false);
         dragon.animations.add('death', [26, 27, 28, 29, 30, 31], 10, false);
         
-        //  Create Timer
-//        flapTimer = game.time.create(false);
-//        flapTimer.loop(100, flapWait, this);
         
         var flap = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        flap.volume = .5;
         flap.onDown.add(flapWait, this);
         
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
@@ -116,20 +112,18 @@ window.onload = function()
                 }
                 
                 // Stand still
-//                dragon.animations.stop();
+                dragon.animations.stop();
                 dragon.frame = 7;
             }
         }
         
         if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-            dragon.body.velocity.y = flapHeight;
             dragon.animations.play('flyRight');
             dragon.body.velocity.x = flySpeed;
         }
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
-            dragon.body.velocity.y = flapHeight;
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
         }
@@ -147,13 +141,13 @@ window.onload = function()
         {
             if(dragon.body.velocity.x > 0)
             {
-                dragon.body.velocity.x -= 10;
+                dragon.body.velocity.x -- 10;
             }
             else if (dragon.body.velocity.x < 0)
             {
-                dragon.body.velocity.x += 10;
+                dragon.body.velocity.x ++ 10;
             }
-//            dragon.animations.stop();
+            dragon.animations.stop();
             dragon.frame = 20;
         }
     }
@@ -166,7 +160,7 @@ window.onload = function()
         {
             dragon.animations.play('flyLeft');
         }
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
             dragon.animations.play('flyRight');
         }
