@@ -196,7 +196,7 @@ window.onload = function()
             dragon.animations.play('takeOffRight');
         } 
         
-        if(dragon.body.velocity.y < flapHeight)
+        if(dragon.body.velocity.y < 0)
         {
             dragon.body.velocity.y += flapHeight;
         }
