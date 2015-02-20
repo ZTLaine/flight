@@ -11,7 +11,7 @@ window.onload = function()
     var baseJump = -100;
     var flapHeight = -250;
     var flapSound;
-    var reunited;
+    var bgm;
     var map;
     var background;
     
@@ -24,7 +24,8 @@ window.onload = function()
         game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
         
         game.load.audio('reunited', 'assets/Reunited.mp3');
-        game.load.audio('flapping', 'assets/flapFast.mp3')
+        game.load.audio('flapping', 'assets/flapFast.mp3');
+        game.load.audio('bgm', 'assets/DeathIsJustAnotherPath.mp3');
     }
     function create()
     {
@@ -39,10 +40,10 @@ window.onload = function()
         game.stage.backgroundColor = '#2d2d2d';
         
         //playing music
-        reunited = game.add.audio('reunited');
-        reunited.loop = true;
-        reunited.volume = .5;
-        reunited.play();
+        bgm = game.add.audio('bgm');
+        bgm.loop = true;
+        bgm.volume = .5;
+        bgm.play();
         flapSound = game.add.audio('flapping');
         
         dragon = game.add.sprite(32, game.world.height - 150, 'sindra');
