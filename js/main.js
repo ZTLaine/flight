@@ -106,6 +106,15 @@ window.onload = function()
             }
             else
             {
+                if(dragon.body.velocity.x > 0)
+                {
+                    dragon.body.velocity.x -= 10;
+                }
+                else if (dragon.body.velocity.x < 0)
+                {
+                    dragon.body.velocity.x += 10;
+                }
+                
                 // Stand still
                 dragon.animations.stop();
                 dragon.frame = 7;
