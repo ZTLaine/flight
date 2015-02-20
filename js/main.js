@@ -91,7 +91,7 @@ window.onload = function()
         flap.volume = .5;
         flap.onDown.add(flapWait, this);
         
-        goal = game.text(16, 16, 'Look around, see if you can see any clues that might help you find your hatchling.', { fill: '#ffffff' });
+        goal = game.add.text(16, 16, 'Look around, see if you can see any clues that might help you find your hatchling.', { fill: '#ffffff' });
         
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
     }
