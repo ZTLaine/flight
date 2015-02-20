@@ -152,7 +152,7 @@ window.onload = function()
             
             if(dragon.body.velocity.x > -flySpeed)
             {
-                dragon.body.velocity.x -= 10;
+                dragon.body.velocity.x -= 50;
             }
         }
         if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
@@ -161,7 +161,7 @@ window.onload = function()
             
             if(dragon.body.velocity.x < flySpeed)
             {
-                dragon.body.velocity.x += 10;
+                dragon.body.velocity.x += 50;
             }
         }
         flapSound.play();
