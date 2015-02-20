@@ -79,7 +79,6 @@ window.onload = function()
     {
         //game.physics.arcade.collide(arrow, people, collisionHandler, null, this);
         //game.physics.arcade.collide(people, people);
-        dragon.body.velocity.x = 0;
         if(dragon.body.onFloor())
         {
             if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
@@ -113,21 +112,17 @@ window.onload = function()
             }
         }
         
-        if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-    //        hasFlapped = true;
             dragon.body.velocity.y = flapHeight;
             dragon.animations.play('flyRight');
             dragon.body.velocity.x = flySpeed;
-    //        flapTimer.start();
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
-    //        hasFlapped = true;
             dragon.body.velocity.y = flapHeight;
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
-    //        flapTimer.start();
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
@@ -141,6 +136,7 @@ window.onload = function()
         }
         else if (!dragon.body.onFloor())
         {
+            
             dragon.animations.stop();
             dragon.frame = 20;
         }
