@@ -26,7 +26,7 @@ window.onload = function()
         game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
         
         game.load.audio('reunited', 'assets/Reunited.mp3');
-        game.load.audio('flapping', 'assets/flap.mp3')
+        game.load.audio('flapping', 'assets/flapFast.mp3')
     }
     function create()
     {
