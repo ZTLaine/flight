@@ -9,7 +9,7 @@ window.onload = function()
     var walkSpeed = 150;
     var flySpeed = 350;
     var baseJump = -100;
-    var flap = -150;
+    var flapHeight = -150;
     var facing = "right";
     var reunited;
     var map;
@@ -112,7 +112,7 @@ window.onload = function()
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
     //        hasFlapped = true;
-            dragon.body.velocity.y = flap;
+            dragon.body.velocity.y = flapHeight;
             dragon.animations.play('flyRight');
             dragon.body.velocity.x = flySpeed;
     //        flapTimer.start();
@@ -120,7 +120,7 @@ window.onload = function()
         else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
     //        hasFlapped = true;
-            dragon.body.velocity.y = flap;
+            dragon.body.velocity.y = flapHeight;
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
     //        flapTimer.start();
@@ -144,6 +144,6 @@ window.onload = function()
     
     function flapWait()
     {
-        dragon.body.velocity.y = flap;
+        dragon.body.velocity.y = flapHeight;
     }     
 };
