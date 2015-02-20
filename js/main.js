@@ -7,15 +7,16 @@ window.onload = function()
     var dragon;
     var gravity = 500;
     var walkSpeed = 150;
-    var flySpeed = 250;
+    var flySpeed = 350;
     var baseJump = -100;
     var flap = -150;
     var facing = "right";
     var reunited;
     var map;
     var background;
-    var hasFlapped = false;
-    var flapTimer;
+//    var hasFlapped = false;
+//    var flapTimer;
+    var flap = game.input.keyboard.addKey(Phaser.keyboard.SPACEBAR);
     
     function preload()
     {
@@ -62,9 +63,11 @@ window.onload = function()
         dragon.animations.add('landLeft', [43, 42, 41, 40, 39], 10, false);
         dragon.animations.add('death', [26, 27, 28, 29, 30, 31], 10, false);
         
-        //  Create our Timer
-        flapTimer = game.time.create(false);
-        flapTimer.loop(100, flapWait, this);
+        //  Create Timer
+//        flapTimer = game.time.create(false);
+//        flapTimer.loop(100, flapWait, this);
+        
+        flap.onDown.add(flapWait(), this);
         
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
     }
@@ -106,21 +109,21 @@ window.onload = function()
             }
         }
         
-        if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && hasFlapped == false)
+        if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-            hasFlapped = true;
+    //        hasFlapped = true;
             dragon.body.velocity.y = flap;
             dragon.animations.play('flyRight');
             dragon.body.velocity.x = flySpeed;
-            flapTimer.start();
+    //        flapTimer.start();
         }
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && hasFlapped == false)
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
-            hasFlapped = true;
+    //        hasFlapped = true;
             dragon.body.velocity.y = flap;
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
-            flapTimer.start();
+    //        flapTimer.start();
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
@@ -141,6 +144,6 @@ window.onload = function()
     
     function flapWait()
     {
-        hasFlapped = false;
+        dragon.body.velocity.y = flap;
     }     
 };
