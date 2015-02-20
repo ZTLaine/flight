@@ -115,7 +115,7 @@ window.onload = function()
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-            dragon.animations.play('flyLeft');
+            dragon.animations.play('flyRight');
             dragon.body.velocity.x = flySpeed;
         }
         else if (!dragon.body.onFloor())
