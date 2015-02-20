@@ -120,6 +120,7 @@ window.onload = function()
             dragon.body.velocity.y = flap;
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
+            flapTimer.start();
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
