@@ -8,7 +8,17 @@ window.onload = function()
     var dragon;
     var map;
     
+    var prints;
     var treeLine;
+    var blood;
+    var view;
+    
+    var printsDone = false;
+    var treeLineDone = false;
+    var bloodDone = false;
+    var viewDone = false;
+    
+    var goal;
     
     var gravity = 500;
     var walkSpeed = 100;
@@ -81,12 +91,17 @@ window.onload = function()
         flap.volume = .5;
         flap.onDown.add(flapWait, this);
         
+        goal = game.text(16, 16, 'Look around, see if you can see any clues that might help you find your hatchling.', { fill: '#ffffff' });
+        
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
     }
     function update()
     {
-        //game.physics.arcade.collide(arrow, people, collisionHandler, null, this);
-        //game.physics.arcade.collide(people, people);
+        if(eventTrigger(dragon, treeLine) && !treeLineDone)
+        {
+            goal.text = 'Can't see anything up here...maybe you'll be able to smell something closer to the ground?';
+        }
+        
         if(dragon.body.onFloor())
         {
             if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
@@ -99,18 +114,6 @@ window.onload = function()
             {
                 dragon.body.velocity.x = walkSpeed;
                 dragon.animations.play('flyRightSlow');
-            }
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor() && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-            {
-                dragon.body.velocity.x = 0 - walkSpeed;
-                dragon.body.velocity.y = baseJump;
-                dragon.animations.play('takeOffLeft');
-            }
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor())
-            {
-                dragon.body.velocity.x = walkSpeed;
-                dragon.body.velocity.y = baseJump;
-                dragon.animations.play('takeOffRight');
             }
             else
             {
@@ -129,17 +132,7 @@ window.onload = function()
             }
         }
         
-        if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
-        {
-          //  dragon.frame = 18;
-    //        dragon.animations.play('flyRight');
-        }
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-        {
-        //    dragon.frame = 45;
-    //        dragon.animations.play('flyLeft');
-        }
-        else if (!dragon.body.onFloor())
+        if (!dragon.body.onFloor())
         {
             if(dragon.body.velocity.x > 0)
             {
@@ -182,5 +175,14 @@ window.onload = function()
             }
         }
         flapSound.play();
-    }     
+    }
+    
+    function eventTrigger(spriteA, spriteB)
+    {
+        var boundsA = spriteA.getBounds();
+        var boundsB = spriteB.getBounds();
+    
+        return Phaser.Rectangle.intersects(boundsA, boundsB);
+
+    }
 };
