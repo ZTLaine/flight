@@ -92,6 +92,7 @@ window.onload = function()
         flap.onDown.add(flapWait, this);
         
         goal = game.add.text(16, 16, 'Look around, see if you can see any clues that might help you find your hatchling.', { fill: '#ffffff' });
+        goal.fixedToCamera = true;
         
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
     }
