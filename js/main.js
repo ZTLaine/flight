@@ -97,7 +97,7 @@ window.onload = function()
     }
     function update()
     {
-        if(eventTrigger(dragon, treeLine) && !treeLineDone)
+        if(eventTrigger(dragon, treeLine) && treeLineDone == false)
         {
             goal.text = 'Can't see anything up here...maybe you'll be able to smell something closer to the ground?';
         }
