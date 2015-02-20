@@ -25,7 +25,7 @@ window.onload = function()
         game.load.spritesheet('sindra', 'assets/dragonProtag1.png', 200, 150, 52);
 //        game.load.image('grass', 'assets/grass.png');
 //        game.load.image('BG', 'assets/grassyBG.png');
-        game.load.image('treeTops', 'assets/aboveTreesTest');
+        game.load.image('treeTops', 'assets/aboveTreesTest.png');
         game.load.image('forest', 'assets/forest_background_by_jbjdesigns-d5mgjm3.png');
         game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
         
