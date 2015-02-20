@@ -104,11 +104,11 @@ window.onload = function()
             {
                 if(dragon.body.velocity.x > 0)
                 {
-                    dragon.body.velocity.x--;
+                    dragon.body.velocity.x -= 5;
                 }
                 else if (dragon.body.velocity.x < 0)
                 {
-                    dragon.body.velocity.x++;
+                    dragon.body.velocity.x += 5;
                 }
                 
                 // Stand still
