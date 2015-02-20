@@ -103,7 +103,7 @@ window.onload = function()
             }
         }
         
-        if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && hasFlapped == false)
         {
             hasFlapped = true;
             dragon.body.velocity.y = flap;
@@ -111,7 +111,7 @@ window.onload = function()
             dragon.body.velocity.x = flySpeed;
             flapTimer.start();
         }
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && hasFlapped == false)
         {
             hasFlapped = true;
             dragon.body.velocity.y = flap;
