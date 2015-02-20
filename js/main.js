@@ -16,7 +16,6 @@ window.onload = function()
     var background;
 //    var hasFlapped = false;
 //    var flapTimer;
-    var flap = game.input.keyboard.addKey(Phaser.keyboard.SPACEBAR);
     
     function preload()
     {
@@ -67,6 +66,7 @@ window.onload = function()
 //        flapTimer = game.time.create(false);
 //        flapTimer.loop(100, flapWait, this);
         
+        var flap = game.input.keyboard.addKey(Phaser.keyboard.SPACEBAR);
         flap.onDown.add(flapWait(), this);
         
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
