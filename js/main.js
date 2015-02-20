@@ -119,12 +119,12 @@ window.onload = function()
         
         if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-            dragon.frame = 18;
+          //  dragon.frame = 18;
     //        dragon.animations.play('flyRight');
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
-            dragon.frame = 45;
+        //    dragon.frame = 45;
     //        dragon.animations.play('flyLeft');
         }
         else if (!dragon.body.onFloor())
