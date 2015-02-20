@@ -146,14 +146,6 @@ window.onload = function()
         }
         else if (!dragon.body.onFloor())
         {
-            if(dragon.body.velocity.x > 0)
-            {
-                dragon.body.velocity.x--;
-            }
-            else if (dragon.body.velocity.x < 0)
-            {
-                dragon.body.velocity.x++;
-            }
             dragon.animations.stop();
             dragon.frame = 20;
         }
