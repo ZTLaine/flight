@@ -120,13 +120,13 @@ window.onload = function()
         
         if(eventTrigger(dragon, blood) && printsDone == true && treeLineDone == true && bloodDone == false)
         {
-            goal.text = '...This scent...\nHe was injured.\nYou still haven\'t caught the scent of another dragon.\nYou need to see what you can from above the edge of the forest.';
+            goal.text = '...This scent...\nHe was injured.\nYou still haven\'t caught the scent of another dragon.\nYou need to see what you can of the nearby town from above the edge of the forest.';
             bloodDone = true;
         }
         
         if(eventTrigger(dragon, view) && printsDone == true && treeLineDone == true && bloodDone == true && viewDone == false)
         {
-            goal.text = 'It definitely looks like something has the town excited.\nYou\'re going to need to fly over.\n\nYou don\'t understand, why would the humans want your hatchling?\nYou\'ve always kept to yourself...';
+            goal.text = 'It definitely looks like something has the town excited.\nYou\'re going to need to fly over.\nYou don\'t understand, why would the humans want your hatchling?\nYou\'ve always kept to yourself...';
             bloodDone = true;
         }
         
