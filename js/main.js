@@ -144,7 +144,7 @@ window.onload = function()
             // dragon.frame = 45;
             // dragon.animations.play('flyLeft');
         }
-        if (!dragon.body.onFloor())
+        else if (!dragon.body.onFloor())
         {
             if(dragon.body.velocity.x > 0)
             {
@@ -156,6 +156,15 @@ window.onload = function()
             }
             dragon.animations.stop();
             dragon.frame = 20;
+        }
+        
+        if(dragon.body.velocity.x > 0)
+        {
+            dragon.body.velocity.x--;
+        }
+        else if (dragon.body.velocity.x < 0)
+        {
+            dragon.body.velocity.x++;
         }
     }
     
