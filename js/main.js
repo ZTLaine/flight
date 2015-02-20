@@ -132,7 +132,19 @@ window.onload = function()
             }
         }
         
+        if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        
         if (!dragon.body.onFloor())
+        {
+            // dragon.frame = 18;
+            // dragon.animations.play('flyRight');
+        }
+         else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+         {
+            // dragon.frame = 45;
+            // dragon.animations.play('flyLeft');
+        }
+        else if (!dragon.body.onFloor())
         {
             if(dragon.body.velocity.x > 0)
             {
