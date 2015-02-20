@@ -13,7 +13,7 @@ window.onload = function()
     var reunited;
     var map;
     var background;
-   // var hasFlapped = false;
+    var hasFlapped = false;
     
     function preload()
     {
@@ -58,6 +58,11 @@ window.onload = function()
         dragon.animations.add('flyLeft', [46, 45, 44], 10, false);
         dragon.animations.add('landLeft', [43, 42, 41, 40, 39], 10, false);
         dragon.animations.add('death', [26, 27, 28, 29, 30, 31], 10, false);
+        
+        //  Create our Timer
+        flapTimer = game.time.create(false);
+        flapTimer.add(500, flapWait, this);
+        
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
     }
     function update()
@@ -100,14 +105,15 @@ window.onload = function()
         
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-        //    hasFlapped = true;
+            hasFlapped = true;
             dragon.body.velocity.y = flap;
             dragon.animations.play('flyRight');
             dragon.body.velocity.x = flySpeed;
+            flapTimer.start();
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
-        //    hasFlapped = true;
+            hasFlapped = true;
             dragon.body.velocity.y = flap;
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
@@ -127,7 +133,10 @@ window.onload = function()
             dragon.animations.stop();
             dragon.frame = 20;
         }
-    //    hasFlapped = false;
     }
-         
+    
+    void flapWait()
+    {
+        hasFlapped = false;
+    }     
 };
