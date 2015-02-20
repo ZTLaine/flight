@@ -136,7 +136,7 @@ window.onload = function()
         }
     }
     
-    void flapWait()
+    function flapWait()
     {
         hasFlapped = false;
     }     
