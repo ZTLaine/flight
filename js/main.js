@@ -5,6 +5,7 @@ window.onload = function()
     "use strict";
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
     var dragon;
+    var gravity = 500;
     var walkSpeed = 150;
     var flySpeed = 250;
     var baseJump = -100;
@@ -36,6 +37,7 @@ window.onload = function()
         background = map.createLayer('forestBG');
         background.resizeWorld();
         game.stage.backgroundColor = '#2d2d2d';
+        
         //playing music
         reunited = game.add.audio('reunited');
         reunited.loop = true;
@@ -44,9 +46,9 @@ window.onload = function()
         dragon = game.add.sprite(32, game.world.height - 150, 'sindra');
         game.physics.arcade.enable(dragon);
         dragon.body.bounce.y = 0.2;
-        dragon.body.gravity.y = 1000;
-        dragon.body.drag.x = 100;
-        dragon.body.y = 100;
+        dragon.body.gravity.y = gravity;
+    //    dragon.body.drag.x = 100;
+    //    dragon.body.drag.y = 100;
         dragon.anchor.setTo(.5,.5);
         game.camera.follow(dragon);
         dragon.body.collideWorldBounds = true;
