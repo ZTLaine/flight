@@ -144,7 +144,7 @@ window.onload = function()
             // dragon.frame = 45;
             // dragon.animations.play('flyLeft');
         }
-        else if (!dragon.body.onFloor())
+        else (!dragon.body.onFloor())
         {
             if(dragon.body.velocity.x > 0)
             {
@@ -170,6 +170,7 @@ window.onload = function()
         dragon.body.velocity.y = flapHeight;
         flapSound = game.add.audio('flapping');
         flapSound.play();
+        
         if(dragon.body.velocity.x > -flySpeed)
         {
             dragon.body.velocity.x -= 50;
