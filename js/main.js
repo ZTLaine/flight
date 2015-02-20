@@ -63,7 +63,7 @@ window.onload = function()
         //event areas setup
         prints = game.add.sprite(1200, (game.world.height - 150), 'footPrints');
         treeLine = game.add.sprite(0, (game.world.height - 1050), 'treeTops');
-        blood = game.add.sprite(3000, (game.world.height - 1200), 'bloodSmell');
+        blood = game.add.sprite(3000, (game.world.height - 900), 'bloodSmell');
         view = game.add.sprite(4800, 0, 'townView');
         
         //playing music
