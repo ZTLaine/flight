@@ -42,6 +42,8 @@ window.onload = function()
         game.physics.arcade.enable(dragon);
         dragon.body.bounce.y = 0.2;
         dragon.body.gravity.y = 1000;
+        dragon.body.drag.x = 100;
+        dragon.body.y = 100;
         dragon.anchor.setTo(.5,.5);
         game.camera.follow(dragon);
         dragon.body.collideWorldBounds = true;
