@@ -36,7 +36,10 @@ window.onload = function()
         game.load.spritesheet('sindra', 'assets/dragonProtag1.png', 200, 150, 52);
 //        game.load.image('grass', 'assets/grass.png');
 //        game.load.image('BG', 'assets/grassyBG.png');
+        game.load.image('footPrints', 'assets/printsTest.png');
         game.load.image('treeTops', 'assets/aboveTreesTest.png');
+        game.load.image('bloodSmell', 'assets/bloodTest.png');
+        game.load.image('townView', 'assets/viewTest.png');
         game.load.image('forest', 'assets/forest_background_by_jbjdesigns-d5mgjm3.png');
         game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
         
@@ -58,7 +61,10 @@ window.onload = function()
         game.stage.backgroundColor = '#2d2d2d';
         
         //event areas setup
-        treeLine = game.add.sprite(0, (game.world.height - 1200), 'treeTops');
+        prints = game.add.sprite(1200, (game.world.height - 150), 'footPrints');
+        treeLine = game.add.sprite(0, (game.world.height - 1050), 'treeTops');
+        blood = game.add.sprite(3000, (game.world.height - 1200), 'bloodSmell');
+        view = game.add.sprite(4800, 0, 'townView');
         
         //playing music
         bgm = game.add.audio('bgm');
@@ -100,10 +106,28 @@ window.onload = function()
     }
     function update()
     {
-        if(eventTrigger(dragon, treeLine) && treeLineDone == false)
+        if(eventTrigger(dragon, prints) && printsDone == false)
+        {
+            goal.text = 'Look at this mess of footprints!\nYou are unable to discern what made the tracks,\nbut it looks like your home had unexpected company.\nTake to the air.  If it was another dragon (or he escaped)\nyou should be able to see him once you clear the trees.';
+            printsDone = true;
+        }
+        
+        if(eventTrigger(dragon, treeLine) && printsDone == true && treeLineDone == false)
         {
             goal.text = 'Nothing to see up here...\nMaybe you can try to smell something closer to the ground?';
-            treeLineDone == true;
+            treeLineDone = true;
+        }
+        
+        if(eventTrigger(dragon, blood) && printsDone == true && treeLineDone == true && bloodDone == false)
+        {
+            goal.text = '...This scent...\nHe was injured.\nYou still haven\'t caught the scent of another dragon.\nYou need to see what you can from above the edge of the forest.';
+            bloodDone = true;
+        }
+        
+        if(eventTrigger(dragon, view) && printsDone == true && treeLineDone == true && bloodDone == true && viewDone == false)
+        {
+            goal.text = 'It definitely looks like something has the town excited.\nYou\'re going to need to fly over.\n\nYou don\'t understand, why would the humans want your hatchling?\nYou\'ve always kept to yourself...';
+            bloodDone = true;
         }
         
         if(dragon.body.onFloor())
@@ -205,7 +229,6 @@ window.onload = function()
                 dragon.body.velocity.x += 50;
             }
         }
-        
     }
     
     function eventTrigger(spriteA, spriteB)
@@ -214,6 +237,5 @@ window.onload = function()
         var boundsB = spriteB.getBounds();
     
         return Phaser.Rectangle.intersects(boundsA, boundsB);
-
     }
 };
