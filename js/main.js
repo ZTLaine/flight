@@ -166,8 +166,21 @@ window.onload = function()
             dragon.body.velocity.y = baseJump;
             dragon.animations.play('takeOffRight');
         } 
+        
         dragon.body.velocity.y = flapHeight;
         flapSound = game.add.audio('flapping');
+        flapSound.play();
+        if(dragon.body.velocity.x > -flySpeed)
+        {
+            dragon.body.velocity.x -= 50;
+            dragon.animations.play('flyLeft');
+        }
+        if(dragon.body.velocity.x < flySpeed)
+        {
+            dragon.body.velocity.x += 50;
+            dragon.animations.play('flyRight');
+        }
+        
         if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
             dragon.animations.play('flyLeft');
@@ -186,7 +199,7 @@ window.onload = function()
                 dragon.body.velocity.x += 50;
             }
         }
-        flapSound.play();
+        
     }
     
     function eventTrigger(spriteA, spriteB)
