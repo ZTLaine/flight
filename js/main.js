@@ -19,6 +19,7 @@ window.onload = function()
     var viewDone = false;
     
     var goal;
+    var style;
     
     var gravity = 500;
     var walkSpeed = 100;
@@ -91,7 +92,8 @@ window.onload = function()
         flap.volume = .5;
         flap.onDown.add(flapWait, this);
         
-        goal = game.add.text(16, 16, 'Look around, see if you can see any clues that might help you find your hatchling.', { fill: '#ffffff' });
+        style = { font: "12px Arial", fill: "#ffffff", align: "center" };
+        goal = game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.');
         goal.fixedToCamera = true;
         
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
