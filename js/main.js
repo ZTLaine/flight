@@ -4,22 +4,39 @@ window.onload = function()
     // https://github.com/photonstorm/phaser/tree/master/resources/Project%20Templates/Basic
     "use strict";
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
+    
     var dragon;
+    var map;
+    
+    var prints;
+    var treeLine;
+    var blood;
+    var view;
+    
+    var printsDone = false;
+    var treeLineDone = false;
+    var bloodDone = false;
+    var viewDone = false;
+    
+    var goal;
+    var style;
+    
     var gravity = 500;
     var walkSpeed = 100;
     var flySpeed = 350;
     var baseJump = -100;
     var flapHeight = -250;
+    
     var flapSound;
     var bgm;
-    var map;
     var background;
     
     function preload()
     {
         game.load.spritesheet('sindra', 'assets/dragonProtag1.png', 200, 150, 52);
-        game.load.image('grass', 'assets/grass.png');
-        game.load.image('BG', 'assets/grassyBG.png');
+//        game.load.image('grass', 'assets/grass.png');
+//        game.load.image('BG', 'assets/grassyBG.png');
+        game.load.image('treeTops', 'assets/aboveTreesTest.png');
         game.load.image('forest', 'assets/forest_background_by_jbjdesigns-d5mgjm3.png');
         game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
         
@@ -31,6 +48,7 @@ window.onload = function()
     {
         game.world.setBounds(0, 0, 3200, 1824);
         game.physics.startSystem(Phaser.Physics.ARCADE)
+        
         //tilemap setup
         map = game.add.tilemap('map');
         // map3 = game.add.tilemap('map');
@@ -39,6 +57,9 @@ window.onload = function()
         background.resizeWorld();
         game.stage.backgroundColor = '#2d2d2d';
         
+        //event areas setup
+        treeLine = game.add.sprite(0, (game.world.height - 1200), 'treeTops');
+        
         //playing music
         bgm = game.add.audio('bgm');
         bgm.loop = true;
@@ -46,12 +67,11 @@ window.onload = function()
         bgm.play();
         flapSound = game.add.audio('flapping');
         
+        //character setup
         dragon = game.add.sprite(32, game.world.height - 150, 'sindra');
         game.physics.arcade.enable(dragon);
         dragon.body.bounce.y = 0.2;
         dragon.body.gravity.y = gravity;
-    //    dragon.body.drag.x = 100;
-    //    dragon.body.drag.y = 100;
         dragon.anchor.setTo(.5,.5);
         game.camera.follow(dragon);
         dragon.body.collideWorldBounds = true;
@@ -72,12 +92,20 @@ window.onload = function()
         flap.volume = .5;
         flap.onDown.add(flapWait, this);
         
+        style = { font: "15px Arial", fill: "#ffffff", align: "center" };
+        goal = game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.', style);
+        goal.fixedToCamera = true;
+        
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
     }
     function update()
     {
-        //game.physics.arcade.collide(arrow, people, collisionHandler, null, this);
-        //game.physics.arcade.collide(people, people);
+        if(eventTrigger(dragon, treeLine) && treeLineDone == false)
+        {
+            goal.text = 'Nothing to see up here...\nMaybe you can try to smell something closer to the ground?';
+            treeLineDone == true;
+        }
+        
         if(dragon.body.onFloor())
         {
             if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
@@ -90,18 +118,6 @@ window.onload = function()
             {
                 dragon.body.velocity.x = walkSpeed;
                 dragon.animations.play('flyRightSlow');
-            }
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor() && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-            {
-                dragon.body.velocity.x = 0 - walkSpeed;
-                dragon.body.velocity.y = baseJump;
-                dragon.animations.play('takeOffLeft');
-            }
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && dragon.body.onFloor())
-            {
-                dragon.body.velocity.x = walkSpeed;
-                dragon.body.velocity.y = baseJump;
-                dragon.animations.play('takeOffRight');
             }
             else
             {
@@ -121,27 +137,30 @@ window.onload = function()
         }
         
         if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        
+        if (!dragon.body.onFloor())
         {
-          //  dragon.frame = 18;
-    //        dragon.animations.play('flyRight');
+            // dragon.frame = 18;
+            // dragon.animations.play('flyRight');
         }
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-        {
-        //    dragon.frame = 45;
-    //        dragon.animations.play('flyLeft');
+         else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+         {
+            // dragon.frame = 45;
+            // dragon.animations.play('flyLeft');
         }
         else if (!dragon.body.onFloor())
         {
-            if(dragon.body.velocity.x > 0)
-            {
-                dragon.body.velocity.x--;
-            }
-            else if (dragon.body.velocity.x < 0)
-            {
-                dragon.body.velocity.x++;
-            }
             dragon.animations.stop();
             dragon.frame = 20;
+        }
+        
+        if(dragon.body.velocity.x > 0)
+        {
+            dragon.body.velocity.x--;
+        }
+        else if (dragon.body.velocity.x < 0)
+        {
+            dragon.body.velocity.x++;
         }
     }
     
@@ -152,8 +171,22 @@ window.onload = function()
             dragon.body.velocity.y = baseJump;
             dragon.animations.play('takeOffRight');
         } 
+        
         dragon.body.velocity.y = flapHeight;
         flapSound = game.add.audio('flapping');
+        flapSound.play();
+        
+        if(dragon.body.velocity.x > -flySpeed)
+        {
+            dragon.body.velocity.x -= 50;
+            dragon.animations.play('flyLeft');
+        }
+        if(dragon.body.velocity.x < flySpeed)
+        {
+            dragon.body.velocity.x += 50;
+            dragon.animations.play('flyRight');
+        }
+        
         if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
             dragon.animations.play('flyLeft');
@@ -172,6 +205,15 @@ window.onload = function()
                 dragon.body.velocity.x += 50;
             }
         }
-        flapSound.play();
-    }     
+        
+    }
+    
+    function eventTrigger(spriteA, spriteB)
+    {
+        var boundsA = spriteA.getBounds();
+        var boundsB = spriteB.getBounds();
+    
+        return Phaser.Rectangle.intersects(boundsA, boundsB);
+
+    }
 };
