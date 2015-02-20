@@ -4,22 +4,28 @@ window.onload = function()
     // https://github.com/photonstorm/phaser/tree/master/resources/Project%20Templates/Basic
     "use strict";
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
+    
     var dragon;
+    var map;
+    
+    var treeLine;
+    
     var gravity = 500;
     var walkSpeed = 100;
     var flySpeed = 350;
     var baseJump = -100;
     var flapHeight = -250;
+    
     var flapSound;
     var bgm;
-    var map;
     var background;
     
     function preload()
     {
         game.load.spritesheet('sindra', 'assets/dragonProtag1.png', 200, 150, 52);
-        game.load.image('grass', 'assets/grass.png');
-        game.load.image('BG', 'assets/grassyBG.png');
+//        game.load.image('grass', 'assets/grass.png');
+//        game.load.image('BG', 'assets/grassyBG.png');
+        game.load.image('treeTops', 'assets/aboveTreesTest');
         game.load.image('forest', 'assets/forest_background_by_jbjdesigns-d5mgjm3.png');
         game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
         
@@ -31,6 +37,7 @@ window.onload = function()
     {
         game.world.setBounds(0, 0, 3200, 1824);
         game.physics.startSystem(Phaser.Physics.ARCADE)
+        
         //tilemap setup
         map = game.add.tilemap('map');
         // map3 = game.add.tilemap('map');
@@ -39,6 +46,9 @@ window.onload = function()
         background.resizeWorld();
         game.stage.backgroundColor = '#2d2d2d';
         
+        //event areas setup
+        treeLine = game.add.sprite(0, (game.world.height - 1200), 'treeTops');
+        
         //playing music
         bgm = game.add.audio('bgm');
         bgm.loop = true;
@@ -46,12 +56,11 @@ window.onload = function()
         bgm.play();
         flapSound = game.add.audio('flapping');
         
+        //character setup
         dragon = game.add.sprite(32, game.world.height - 150, 'sindra');
         game.physics.arcade.enable(dragon);
         dragon.body.bounce.y = 0.2;
         dragon.body.gravity.y = gravity;
-    //    dragon.body.drag.x = 100;
-    //    dragon.body.drag.y = 100;
         dragon.anchor.setTo(.5,.5);
         game.camera.follow(dragon);
         dragon.body.collideWorldBounds = true;
