@@ -1,62 +1,58 @@
-window.onload = function() 
+window.onload = function()
 {
     // You might want to start with a template that uses GameStates:
-    //     https://github.com/photonstorm/phaser/tree/master/resources/Project%20Templates/Basic
-    
+    // https://github.com/photonstorm/phaser/tree/master/resources/Project%20Templates/Basic
     "use strict";
-    
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
-
     var dragon;
-    var walkSpeed = 150;
-    var flySpeed = 250;
+    var gravity = 500;
+    var walkSpeed = 100;
+    var flySpeed = 350;
     var baseJump = -100;
-    var flap = -150;
-    var facing = "right";
-    
+    var flapHeight = -250;
+    var flapSound;
     var reunited;
-    var bgm;
-    var flap;
     var map;
     var background;
+//    var hasFlapped = false;
+//    var flapTimer;
     
-    function preload() 
+    function preload()
     {
         game.load.spritesheet('sindra', 'assets/dragonProtag1.png', 200, 150, 52);
-        
         game.load.image('grass', 'assets/grass.png');
         game.load.image('BG', 'assets/grassyBG.png');
         game.load.image('forest', 'assets/forest_background_by_jbjdesigns-d5mgjm3.png');
         game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
         
         game.load.audio('reunited', 'assets/Reunited.mp3');
-    //    game.load.audio('flap', 'assets/flap.mp3');
-    //    game.load.audio('bgm', 'assets/DeathIsJustAnotherPath.mp3');
+        game.load.audio('flapping', 'assets/flap.mp3')
     }
-    
-    
-    function create() 
+    function create()
     {
         game.world.setBounds(0, 0, 3200, 1824);
         game.physics.startSystem(Phaser.Physics.ARCADE)
-        
         //tilemap setup
         map = game.add.tilemap('map');
         // map3 = game.add.tilemap('map');
         map.addTilesetImage('forest_background_by_jbjdesigns-d5mgjm3', 'forest');
         background = map.createLayer('forestBG');
         background.resizeWorld();
+        game.stage.backgroundColor = '#2d2d2d';
         
         //playing music
-    //    bgm = game.add.audio('bgm');
-    //    flap = game.add.audio('flap');
-    //    bgm.loop = true;
-    //    bgm.play();
+        reunited = game.add.audio('reunited');
+        reunited.loop = true;
+        reunited.volume = .5;
+        reunited.play();
+        flapSound = game.add.audio('flapping');
         
         dragon = game.add.sprite(32, game.world.height - 150, 'sindra');
         game.physics.arcade.enable(dragon);
         dragon.body.bounce.y = 0.2;
-        dragon.body.gravity.y = 1000;
+        dragon.body.gravity.y = gravity;
+    //    dragon.body.drag.x = 100;
+    //    dragon.body.drag.y = 100;
         dragon.anchor.setTo(.5,.5);
         game.camera.follow(dragon);
         dragon.body.collideWorldBounds = true;
@@ -69,17 +65,21 @@ window.onload = function()
         dragon.animations.add('flyLeft', [46, 45, 44], 10, false);
         dragon.animations.add('landLeft', [43, 42, 41, 40, 39], 10, false);
         dragon.animations.add('death', [26, 27, 28, 29, 30, 31], 10, false);
-
-       game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
         
+        //  Create Timer
+//        flapTimer = game.time.create(false);
+//        flapTimer.loop(100, flapWait, this);
+        
+        var flap = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        flap.onDown.add(flapWait, this);
+        
+        game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
     }
-    
-    function update() 
+    function update()
     {
         //game.physics.arcade.collide(arrow, people, collisionHandler, null, this);
         //game.physics.arcade.collide(people, people);
         dragon.body.velocity.x = 0;
-        
         if(dragon.body.onFloor())
         {
             if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
@@ -115,24 +115,41 @@ window.onload = function()
         
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-            flap.play();
-            dragon.body.velocity.y = flap;
+    //        hasFlapped = true;
+            dragon.body.velocity.y = flapHeight;
             dragon.animations.play('flyRight');
             dragon.body.velocity.x = flySpeed;
+    //        flapTimer.start();
         }
         else if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
-            flap.play();
-            dragon.body.velocity.y = flap;
+    //        hasFlapped = true;
+            dragon.body.velocity.y = flapHeight;
+            dragon.animations.play('flyLeft');
+            dragon.body.velocity.x = -flySpeed;
+    //        flapTimer.start();
+        }
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        {
             dragon.animations.play('flyLeft');
             dragon.body.velocity.x = -flySpeed;
         }
-        else (!dragon.body.onFloor())
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        {
+            dragon.animations.play('flyRight');
+            dragon.body.velocity.x = flySpeed;
+        }
+        else if (!dragon.body.onFloor())
         {
             dragon.animations.stop();
             dragon.frame = 20;
         }
-   
-     }
-     
+    }
+    
+    function flapWait()
+    {
+        dragon.body.velocity.y = flapHeight;
+        flapSound = game.add.audio('flapping');
+        flapSound.play();
+    }     
 };
