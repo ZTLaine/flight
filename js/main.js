@@ -148,6 +148,7 @@ window.onload = function()
     function flapWait()
     {
         dragon.body.velocity.y = flapHeight;
+        flapSound = game.add.audio('flapping');
         flapSound.play();
     }     
 };
