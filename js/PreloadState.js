@@ -35,9 +35,11 @@ PreloadState.prototype =
         this.game.load.audio('reunited', 'assets/Reunited.mp3');
         this.game.load.audio('flapping', 'assets/flapFast.mp3');
         this.game.load.audio('bgm', 'assets/DeathIsJustAnotherPath.mp3');
+        this.game.load.audio('landed', 'assets/landed.mp3');
         this.game.load.audio('startVA', 'assets/startVA.mp3');
         this.game.load.audio('footprintsVA', 'assets/footprintsVA.mp3');
         this.game.load.audio('treelineVA', 'assets/treelineVA.mp3');
+        this.game.load.audio('bloodVA', 'assets/bloodVA.mp3');
         this.game.load.audio('viewVA', 'assets/viewVA.mp3');
     },
     
