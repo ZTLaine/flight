@@ -26,6 +26,12 @@ var PlayState = function(game)
     this.baseJump = -100;
     this.flapHeight = -250;
     
+    this.startVA;
+    this.footprintsVA;
+    this.treelineVA;
+    this.bloodVA;
+    this.viewVA;
+    this.landedSound;
     this.flapSound;
     this.bgm;
     this.background;
@@ -58,10 +64,18 @@ PlayState.prototype =
         
         //playing music
         this.bgm = this.game.add.audio('bgm');
+        this.flapSound = this.game.add.audio('flapping');
+        this.startVA = this.game.add.audio('startVA');
+        this.footprintsVA = this.game.add.audio('footprintsVA');
+        this.treelineVA = this.game.add.audio('treelineVA')
+        this.bloodVA = this.game.add.audio('bloodVA');
+        this.viewVA = this.game.add.audio('viewVA');
+        this.landedSound = this.game.add.audio('landed');
+        
         this.bgm.loop = true;
         this.bgm.volume = .5;
         this.bgm.play();
-        this.flapSound = this.game.add.audio('flapping');
+        this.startVA.play();
         
         //character setup
         this.dragon = this.game.add.sprite(32, this.game.world.height - 150, 'sindra');
@@ -102,32 +116,36 @@ PlayState.prototype =
         {
             this.goal.text = 'Look at this mess of footprints!\nYou are unable to discern what made the tracks,\nbut it looks like your home had unexpected company.\nTake to the air.  If it was another dragon (or he escaped)\nyou should be able to see him once you clear the trees.';
             this.printsDone = true;
+            this.footprintsVA.play();
         }
         
         if(this.eventTrigger(this.dragon, this.treeLine) && this.printsDone == true && this.treeLineDone == false)
         {
             this.goal.text = 'Nothing to see up here...\nMaybe you can try to smell something closer to the ground?';
             this.treeLineDone = true;
+            this.treelineVA.play();
         }
         
         if(this.eventTrigger(this.dragon, this.blood) && this.printsDone == true && this.treeLineDone == true && this.bloodDone == false)
         {
             this.goal.text = '...This scent...\nHe was injured.\nYou still haven\'t caught the scent of another dragon.\nYou need to see what you can of the nearby town from above the edge of the forest.';
             this.bloodDone = true;
+            this.bloodVA.play();
         }
         
         if(this.eventTrigger(this.dragon, this.view) && this.printsDone == true && this.treeLineDone == true && this.bloodDone == true && this.viewDone == false)
         {
             this.goal.text = 'It definitely looks like something has the town excited.\nYou\'re going to need to fly over.\nYou don\'t understand, why would the humans want your hatchling?\nYou\'ve always kept to yourself...';
             this.bloodDone = true;
+            this.viewVA.play();
         }
         
         if(this.dragon.body.onFloor())
         {
             if(this.dragon.body.onFloor() && this.landed == false)
             {
-                console.log('Shit son we just landed');
                 this.landed = true;
+                this.landedSound.play();
             }
             
             if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
