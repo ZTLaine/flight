@@ -73,7 +73,7 @@ PlayState.prototype =
         this.landedSound = this.game.add.audio('landed');
         
         this.bgm.loop = true;
-        this.bgm.volume = .5;
+        this.bgm.volume = .25;
         this.bgm.play();
         this.startVA.play();
         
@@ -136,7 +136,7 @@ PlayState.prototype =
         if(this.eventTrigger(this.dragon, this.view) && this.printsDone == true && this.treeLineDone == true && this.bloodDone == true && this.viewDone == false)
         {
             this.goal.text = 'It definitely looks like something has the town excited.\nYou\'re going to need to fly over.\nYou don\'t understand, why would the humans want your hatchling?\nYou\'ve always kept to yourself...';
-            this.bloodDone = true;
+            this.viewDone = true;
             this.viewVA.play();
         }
         
