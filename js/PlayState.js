@@ -20,7 +20,7 @@ var PlayState = function(game)
     var goal;
     var style;
     
-    var gravity = 500;
+    this.gravity = 500;
     var walkSpeed = 100;
     var flySpeed = 350;
     var baseJump = -100;
