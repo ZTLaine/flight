@@ -19,7 +19,7 @@ IntroState.prototype =
     update: function()
     {
         //wait for click input go to play
-        if(this.game.input.activePointer.isDown)
+        if(this.game.input.keyboard.isDown(Phaser.Keyboard.SPACE))
         {
             this.game.state.start("play");
         }
