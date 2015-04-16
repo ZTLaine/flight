@@ -17,7 +17,7 @@ var PlayState = function(game)
     this.bloodDone = false;
     this.viewDone = false;
     
-    this.goal;
+    //this.goal;
     this.style;
     
     this.gravity = 500;
@@ -26,6 +26,12 @@ var PlayState = function(game)
     this.baseJump = -100;
     this.flapHeight = -250;
     
+    this.startVA;
+    this.footprintsVA;
+    this.treelineVA;
+    this.bloodVA;
+    this.viewVA;
+    this.landedSound;
     this.flapSound;
     this.bgm;
     this.background;
@@ -58,10 +64,18 @@ PlayState.prototype =
         
         //playing music
         this.bgm = this.game.add.audio('bgm');
-        this.bgm.loop = true;
-        this.bgm.volume = .5;
-        this.bgm.play();
         this.flapSound = this.game.add.audio('flapping');
+        this.startVA = this.game.add.audio('startVA');
+        this.footprintsVA = this.game.add.audio('footprintsVA');
+        this.treelineVA = this.game.add.audio('treelineVA')
+        this.bloodVA = this.game.add.audio('bloodVA');
+        this.viewVA = this.game.add.audio('viewVA');
+        this.landedSound = this.game.add.audio('landed');
+        
+        this.bgm.loop = true;
+        this.bgm.volume = .25;
+        this.bgm.play();
+        this.startVA.play();
         
         //character setup
         this.dragon = this.game.add.sprite(32, this.game.world.height - 150, 'sindra');
@@ -89,8 +103,8 @@ PlayState.prototype =
         this.flap.onDown.add(this.flapWait, this);
         
         this.style = { font: "15px Arial", fill: "#ffffff", align: "center" };
-        this.goal = this.game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.', this.style);
-        this.goal.fixedToCamera = true;
+        //this.goal = this.game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.', this.style);
+        //this.goal.fixedToCamera = true;
         
         this.game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
         
@@ -100,43 +114,53 @@ PlayState.prototype =
     {
         if(this.eventTrigger(this.dragon, this.prints) && this.printsDone == false)
         {
-            this.goal.text = 'Look at this mess of footprints!\nYou are unable to discern what made the tracks,\nbut it looks like your home had unexpected company.\nTake to the air.  If it was another dragon (or he escaped)\nyou should be able to see him once you clear the trees.';
+        //    this.goal.text = 'Look at this mess of footprints!\nYou are unable to discern what made the tracks,\nbut it looks like your home had unexpected company.\nTake to the air.  If it was another dragon (or he escaped)\nyou should be able to see him once you clear the trees.';
             this.printsDone = true;
+            this.footprintsVA.play();
         }
         
         if(this.eventTrigger(this.dragon, this.treeLine) && this.printsDone == true && this.treeLineDone == false)
         {
-            this.goal.text = 'Nothing to see up here...\nMaybe you can try to smell something closer to the ground?';
+       //     this.goal.text = 'Nothing to see up here...\nMaybe you can try to smell something closer to the ground?';
             this.treeLineDone = true;
+            this.treelineVA.play();
         }
         
         if(this.eventTrigger(this.dragon, this.blood) && this.printsDone == true && this.treeLineDone == true && this.bloodDone == false)
         {
-            this.goal.text = '...This scent...\nHe was injured.\nYou still haven\'t caught the scent of another dragon.\nYou need to see what you can of the nearby town from above the edge of the forest.';
+        //    this.goal.text = '...This scent...\nHe was injured.\nYou still haven\'t caught the scent of another dragon.\nYou need to see what you can of the nearby town from above the edge of the forest.';
             this.bloodDone = true;
+            this.bloodVA.play();
         }
         
         if(this.eventTrigger(this.dragon, this.view) && this.printsDone == true && this.treeLineDone == true && this.bloodDone == true && this.viewDone == false)
         {
-            this.goal.text = 'It definitely looks like something has the town excited.\nYou\'re going to need to fly over.\nYou don\'t understand, why would the humans want your hatchling?\nYou\'ve always kept to yourself...';
-            this.bloodDone = true;
+        //    this.goal.text = 'It definitely looks like something has the town excited.\nYou\'re going to need to fly over.\nYou don\'t understand, why would the humans want your hatchling?\nYou\'ve always kept to yourself...';
+            this.viewDone = true;
+            this.viewVA.play();
         }
         
         if(this.dragon.body.onFloor())
         {
             if(this.dragon.body.onFloor() && this.landed == false)
             {
-                console.log('Shit son we just landed');
                 this.landed = true;
+                
+                if(this.dragon.body.velocity.y >= 200)
+                {
+                    console.log("Shit son you ded");
+                }
+                this.landedSound.volume = .5;
+                this.landedSound.play();
             }
             
-            if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+            if(this.game.input.keyboard.isDown(Phaser.Keyboard.A))
             {
                 // Move to the left
                 this.dragon.body.velocity.x = (0 - this.walkSpeed);
                 this.dragon.animations.play('flyLeftSlow');
             }
-            else if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+            else if(this.game.input.keyboard.isDown(Phaser.Keyboard.D))
             {
                 this.dragon.body.velocity.x = this.walkSpeed;
                 this.dragon.animations.play('flyRightSlow');
@@ -158,14 +182,14 @@ PlayState.prototype =
             }
         }
         
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        if (this.game.input.keyboard.isDown(Phaser.Keyboard.D))
         
         if (!this.dragon.body.onFloor())
         {
             // dragon.frame = 18;
             // dragon.animations.play('flyRight');
         }
-         else if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+         else if(this.game.input.keyboard.isDown(Phaser.Keyboard.A))
          {
             // dragon.frame = 45;
             // dragon.animations.play('flyLeft');
@@ -223,7 +247,7 @@ PlayState.prototype =
             this.dragon.animations.play('flyRight');
         }
         
-        if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        if(this.game.input.keyboard.isDown(Phaser.Keyboard.A))
         {
             this.dragon.animations.play('flyLeft');
             
@@ -232,7 +256,7 @@ PlayState.prototype =
                 this.dragon.body.velocity.x -= 50;
             }
         }
-        if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        if(this.game.input.keyboard.isDown(Phaser.Keyboard.D))
         {
             this.dragon.animations.play('flyRight');
             

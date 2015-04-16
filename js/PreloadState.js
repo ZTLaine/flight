@@ -20,13 +20,13 @@ PreloadState.prototype =
         
         /* Load images */
         this.game.load.image("startScreen", "assets/startScreen.png");
-        this.game.load.image("victoryScreen", "assets/victoryScreen.png");
+        //this.game.load.image("victoryScreen", "assets/victoryScreen.png");
         
         this.game.load.image('footPrints', 'assets/prints.png');
         this.game.load.image('treeTops', 'assets/aboveTrees.png');
         this.game.load.image('bloodSmell', 'assets/blood.png');
         this.game.load.image('townView', 'assets/view.png');
-        this.game.load.image('forest', 'assets/forest_background_by_jbjdesigns-d5mgjm3.png');
+        this.game.load.image('forest', 'assets/forestBGfull.png');
 
         /* Load spritesheets */
         this.game.load.spritesheet('sindra', 'assets/dragonProtag1.png', 200, 150, 52);
@@ -35,6 +35,12 @@ PreloadState.prototype =
         this.game.load.audio('reunited', 'assets/Reunited.mp3');
         this.game.load.audio('flapping', 'assets/flapFast.mp3');
         this.game.load.audio('bgm', 'assets/DeathIsJustAnotherPath.mp3');
+        this.game.load.audio('landed', 'assets/landed.mp3');
+        this.game.load.audio('startVA', 'assets/startVA.mp3');
+        this.game.load.audio('footprintsVA', 'assets/footprintsVA.mp3');
+        this.game.load.audio('treelineVA', 'assets/treelineVA.mp3');
+        this.game.load.audio('bloodVA', 'assets/bloodVA.mp3');
+        this.game.load.audio('viewVA', 'assets/viewVA.mp3');
     },
     
     create: function()
