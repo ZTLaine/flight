@@ -12,31 +12,31 @@ PlayState.prototype =
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
         
         //tilemap setup
-        this.map = game.add.tilemap('map');
+        this.map = this.game.add.tilemap('map');
         // map3 = game.add.tilemap('map');
         this.map.addTilesetImage('forest_background_by_jbjdesigns-d5mgjm3', 'forest');
-        this.background = map.createLayer('forestBG');
+        this.background = this.map.createLayer('forestBG');
         this.background.resizeWorld();
         this.game.stage.backgroundColor = '#2d2d2d';
         
         //event trigger areas setup
-        this.prints = game.add.sprite(1200, (game.world.height - 150), 'footPrints');
-        this.treeLine = game.add.sprite(0, (game.world.height - 1050), 'treeTops');
-        this.blood = game.add.sprite(3000, (game.world.height - 900), 'bloodSmell');
-        this.view = game.add.sprite(5000, 200, 'townView');
+        this.prints = this.game.add.sprite(1200, (this.game.world.height - 150), 'footPrints');
+        this.treeLine = this.game.add.sprite(0, (this.game.world.height - 1050), 'treeTops');
+        this.blood = this.game.add.sprite(3000, (this.game.world.height - 900), 'bloodSmell');
+        this.view = this.game.add.sprite(5000, 200, 'townView');
         
         //playing music
-        this.bgm = game.add.audio('bgm');
+        this.bgm = this.game.add.audio('bgm');
         this.bgm.loop = true;
         this.bgm.volume = .5;
         this.bgm.play();
-        this.flapSound = game.add.audio('flapping');
+        this.flapSound = this.game.add.audio('flapping');
         
         //character setup
-        this.dragon = game.add.sprite(32, game.world.height - 150, 'sindra');
+        this.dragon = this.game.add.sprite(32, game.world.height - 150, 'sindra');
         this.game.physics.arcade.enable(dragon);
         this.dragon.body.bounce.y = 0.2;
-        this.dragon.body.gravity.y = gravity;
+        this.dragon.body.gravity.y = this.gravity;
         this.dragon.anchor.setTo(.5,.5);
         this.game.camera.follow(dragon);
         this.dragon.body.collideWorldBounds = true;
@@ -53,12 +53,12 @@ PlayState.prototype =
         this.dragon.animations.add('death', [26, 27, 28, 29, 30, 31], 10, false);
         
         
-        this.flap = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        this.flap = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         this.flap.volume = .5;
         this.flap.onDown.add(flapWait, this);
         
         this.style = { font: "15px Arial", fill: "#ffffff", align: "center" };
-        this.goal = game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.', style);
+        this.goal = this.game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.', style);
         this.goal.fixedToCamera = true;
         
         this.game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
@@ -67,60 +67,149 @@ PlayState.prototype =
     
     update: function()
     {
-        if(this.game.time.now - this.timeCheck > 1000 && this.bubbleCounter > 0)
+        if(this.eventTrigger(this.dragon, this.prints) && this.printsDone == false)
         {
-            this.createBubbles(1);
-            this.timeCheck = this.game.time.now;
+            this.goal.text = 'Look at this mess of footprints!\nYou are unable to discern what made the tracks,\nbut it looks like your home had unexpected company.\nTake to the air.  If it was another dragon (or he escaped)\nyou should be able to see him once you clear the trees.';
+            this.printsDone = true;
         }
-        if(this.bubbleCounter <= 0)
-        {
-            this.timeCheck = this.game.time.now;
-            var victoryScreen = this.game.add.sprite(0,0, 'victoryScreen');
-            if(this.game.input.activePointer.isDown)
-            {
-                this.game.state.start("intro");
-            }
-            
-        }
-    },
-    
-    createBubbles: function(n)
-    {
-        for(var i = 0; i < n; i++)
-        {
-            var x = this.game.rnd.integerInRange(0, 770);
-            var y = this.game.rnd.integerInRange(0, 570);
-            var bubbleColor = this.game.rnd.integerInRange(0,7);
-            
-            var bubble = this.bubbles.create(x,y, "bubbles", bubbleColor);
-            var scale = this.game.rnd.integerInRange(1, 2);
-            bubble.scale.set(scale);
-            
-            bubble.body.collideWorldBounds = true;
-            bubble.body.immovable = true;
-            bubble.inputEnabled = true;
-            
-            bubble.events.onInputDown.add(this.bubbleClick, this);
-            this.bubbleCounter++;
-        }    
-    },
-    
-    bubbleClick: function(bubble)
-    {
-        this.bubbleCounter--;
-        var pop2 = this.game.add.audio('pop2');
-        var pop3 = this.game.add.audio('pop3');
         
-        if(this.game.time.now % 2 == 0)
+        if(this.eventTrigger(this.dragon, this.treeLine) && this.printsDone == true && this.treeLineDone == false)
         {
-            pop2.play();
+            this.goal.text = 'Nothing to see up here...\nMaybe you can try to smell something closer to the ground?';
+            this.treeLineDone = true;
+        }
+        
+        if(this.eventTrigger(this.dragon, blood) && this.printsDone == true && this.treeLineDone == true && this.bloodDone == false)
+        {
+            this.goal.text = '...This scent...\nHe was injured.\nYou still haven\'t caught the scent of another dragon.\nYou need to see what you can of the nearby town from above the edge of the forest.';
+            this.bloodDone = true;
+        }
+        
+        if(this.eventTrigger(this.dragon, this.view) && this.printsDone == true && this.treeLineDone == true && this.bloodDone == true && this.viewDone == false)
+        {
+            this.goal.text = 'It definitely looks like something has the town excited.\nYou\'re going to need to fly over.\nYou don\'t understand, why would the humans want your hatchling?\nYou\'ve always kept to yourself...';
+            this.bloodDone = true;
+        }
+        
+        if(this.dragon.body.onFloor())
+        {
+            if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+            {
+                // Move to the left
+                this.dragon.body.velocity.x = (0 - this.walkSpeed);
+                this.dragon.animations.play('flyLeftSlow');
+            }
+            else if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+            {
+                this.dragon.body.velocity.x = this.walkSpeed;
+                this.dragon.animations.play('flyRightSlow');
+            }
+            else
+            {
+                if(this.dragon.body.velocity.x > 0)
+                {
+                    this.dragon.body.velocity.x -= 5;
+                }
+                else if (this.dragon.body.velocity.x < 0)
+                {
+                    this.dragon.body.velocity.x += 5;
+                }
+                
+                // Stand still
+                this.dragon.animations.stop();
+                this.dragon.frame = 7;
+            }
+        }
+        
+        if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        
+        if (!this.dragon.body.onFloor())
+        {
+            // dragon.frame = 18;
+            // dragon.animations.play('flyRight');
+        }
+         else if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+         {
+            // dragon.frame = 45;
+            // dragon.animations.play('flyLeft');
+        }
+        else if (!this.dragon.body.onFloor())
+        {
+            this.dragon.animations.stop();
+            this.dragon.frame = 20;
+        }
+        
+        if(this.dragon.body.velocity.x > 0)
+        {
+            this.dragon.body.velocity.x--;
+        }
+        else if (this.dragon.body.velocity.x < 0)
+        {
+            this.dragon.body.velocity.x++;
+        }
+    },
+    
+    //runs when flap is pressed
+    flapWait: function ()
+    {
+        if(this.dragon.body.onFloor())
+        {
+            this.dragon.body.velocity.y = this.baseJump;
+            this.dragon.animations.play('takeOffRight');
+        } 
+        
+        if(this.dragon.body.velocity.y < 0)
+        {
+            this.dragon.body.velocity.y += this.flapHeight;
+            if(this.dragon.body.velocity.y < this.flapHeight)
+            {
+                this.dragon.body.velocity.y = this.flapHeight;
+            }
         }
         else
         {
-            pop3.play();
+            this.dragon.body.velocity.y = this.flapHeight;
         }
-        bubble.destroy();
-    }
+        this.flapSound = this.game.add.audio('flapping');
+        this.flapSound.play();
+        
+        if(this.dragon.body.velocity.x > -this.flySpeed)
+        {
+            this.dragon.body.velocity.x -= 50;
+            this.dragon.animations.play('flyLeft');
+        }
+        if(this.dragon.body.velocity.x < this.flySpeed)
+        {
+            this.dragon.body.velocity.x += 50;
+            this.dragon.animations.play('flyRight');
+        }
+        
+        if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        {
+            this.dragon.animations.play('flyLeft');
+            
+            if(this.dragon.body.velocity.x > -this.flySpeed)
+            {
+                this.dragon.body.velocity.x -= 50;
+            }
+        }
+        if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        {
+            this.dragon.animations.play('flyRight');
+            
+            if(this.dragon.body.velocity.x < this.flySpeed)
+            {
+                this.dragon.body.velocity.x += 50;
+            }
+        }
+    },
     
+    eventTrigger: function(spriteA, spriteB)
+    {
+        var boundsA = spriteA.getBounds();
+        var boundsB = spriteB.getBounds();
+    
+        return Phaser.Rectangle.intersects(boundsA, boundsB);
+    }
     
 };
