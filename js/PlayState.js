@@ -29,6 +29,8 @@ var PlayState = function(game)
     this.flapSound;
     this.bgm;
     this.background;
+    
+    this.dragon.landed = true;
 }
 
 PlayState.prototype =
@@ -122,6 +124,11 @@ PlayState.prototype =
         
         if(this.dragon.body.onFloor())
         {
+            if(this.dragon.body.onFloor() && this.dragon.landed = false)
+            {
+                console.log('Shit son we just landed');
+            }
+            
             if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
             {
                 // Move to the left
@@ -181,6 +188,8 @@ PlayState.prototype =
     //runs when flap is pressed
     flapWait: function ()
     {
+        this.dragon.landed = false;
+        
         if(this.dragon.body.onFloor())
         {
             this.dragon.body.velocity.y = this.baseJump;
