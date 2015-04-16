@@ -3,32 +3,32 @@
 function PlayState(){};
 var PlayState = function(game)
 {
-    var world;
-    var dragon;
-    var map;
+    this.world;
+    this.dragon;
+    this.map;
     
-    var prints;
-    var treeLine;
-    var blood;
-    var view;
+    this.prints;
+    this.treeLine;
+    this.blood;
+    this.view;
     
-    var printsDone = false;
-    var treeLineDone = false;
-    var bloodDone = false;
-    var viewDone = false;
+    this.printsDone = false;
+    this.treeLineDone = false;
+    this.bloodDone = false;
+    this.viewDone = false;
     
-    var goal;
-    var style;
+    this.goal;
+    this.style;
     
     this.gravity = 500;
-    var walkSpeed = 100;
-    var flySpeed = 350;
-    var baseJump = -100;
-    var flapHeight = -250;
+    this.walkSpeed = 100;
+    this.flySpeed = 350;
+    this.baseJump = -100;
+    this.flapHeight = -250;
     
-    var flapSound;
-    var bgm;
-    var background;
+    this.flapSound;
+    this.bgm;
+    this.background;
 }
 
 PlayState.prototype =
