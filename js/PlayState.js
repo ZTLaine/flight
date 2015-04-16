@@ -8,7 +8,7 @@ PlayState.prototype =
     {
         console.log("Play");
         
-        this.game.world.setBounds(0, 0, 3200, 1824);
+        //this.game.world.setBounds(0, 0, 3200, 1824);
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
         
         //tilemap setup
