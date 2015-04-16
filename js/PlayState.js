@@ -148,13 +148,13 @@ PlayState.prototype =
                 this.landedSound.play();
             }
             
-            if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+            if(this.game.input.keyboard.isDown(Phaser.Keyboard.A))
             {
                 // Move to the left
                 this.dragon.body.velocity.x = (0 - this.walkSpeed);
                 this.dragon.animations.play('flyLeftSlow');
             }
-            else if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+            else if(this.game.input.keyboard.isDown(Phaser.Keyboard.D))
             {
                 this.dragon.body.velocity.x = this.walkSpeed;
                 this.dragon.animations.play('flyRightSlow');
@@ -176,14 +176,14 @@ PlayState.prototype =
             }
         }
         
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        if (this.game.input.keyboard.isDown(Phaser.Keyboard.D))
         
         if (!this.dragon.body.onFloor())
         {
             // dragon.frame = 18;
             // dragon.animations.play('flyRight');
         }
-         else if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+         else if(this.game.input.keyboard.isDown(Phaser.Keyboard.A))
          {
             // dragon.frame = 45;
             // dragon.animations.play('flyLeft');
@@ -241,7 +241,7 @@ PlayState.prototype =
             this.dragon.animations.play('flyRight');
         }
         
-        if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        if(this.game.input.keyboard.isDown(Phaser.Keyboard.A))
         {
             this.dragon.animations.play('flyLeft');
             
@@ -250,7 +250,7 @@ PlayState.prototype =
                 this.dragon.body.velocity.x -= 50;
             }
         }
-        if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        if(this.game.input.keyboard.isDown(Phaser.Keyboard.D))
         {
             this.dragon.animations.play('flyRight');
             
