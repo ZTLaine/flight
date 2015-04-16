@@ -8,6 +8,7 @@ PreloadState.prototype =
     preload: function()
     {
         /* Set-up the loading bar */
+        this.game.stage.backgroundColor = '#538C40';
     	this.loading = this.game.add.sprite(this.game.world.centerX - 100, this.game.world.centerY - 100, 'load', 0);
     	this.loading.animations.add('move', [0, 1, 2, 3], 5, true, true);
     	this.loading.animations.play('move');
