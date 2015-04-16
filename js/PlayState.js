@@ -60,7 +60,7 @@ PlayState.prototype =
         
         this.flap = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         this.flap.volume = .5;
-        this.flap.onDown.add(flapWait, this);
+        this.flap.onDown.add(this.flapWait, this);
         
         this.style = { font: "15px Arial", fill: "#ffffff", align: "center" };
         this.goal = this.game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.', style);
