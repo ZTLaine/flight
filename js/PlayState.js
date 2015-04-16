@@ -103,7 +103,7 @@ PlayState.prototype =
         this.flap.onDown.add(this.flapWait, this);
         
         this.style = { font: "15px Arial", fill: "#ffffff", align: "center" };
-        this.goal = this.game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.', this.style);
+        //this.goal = this.game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.', this.style);
         this.goal.fixedToCamera = true;
         
         this.game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
@@ -114,28 +114,28 @@ PlayState.prototype =
     {
         if(this.eventTrigger(this.dragon, this.prints) && this.printsDone == false)
         {
-            this.goal.text = 'Look at this mess of footprints!\nYou are unable to discern what made the tracks,\nbut it looks like your home had unexpected company.\nTake to the air.  If it was another dragon (or he escaped)\nyou should be able to see him once you clear the trees.';
+        //    this.goal.text = 'Look at this mess of footprints!\nYou are unable to discern what made the tracks,\nbut it looks like your home had unexpected company.\nTake to the air.  If it was another dragon (or he escaped)\nyou should be able to see him once you clear the trees.';
             this.printsDone = true;
             this.footprintsVA.play();
         }
         
         if(this.eventTrigger(this.dragon, this.treeLine) && this.printsDone == true && this.treeLineDone == false)
         {
-            this.goal.text = 'Nothing to see up here...\nMaybe you can try to smell something closer to the ground?';
+       //     this.goal.text = 'Nothing to see up here...\nMaybe you can try to smell something closer to the ground?';
             this.treeLineDone = true;
             this.treelineVA.play();
         }
         
         if(this.eventTrigger(this.dragon, this.blood) && this.printsDone == true && this.treeLineDone == true && this.bloodDone == false)
         {
-            this.goal.text = '...This scent...\nHe was injured.\nYou still haven\'t caught the scent of another dragon.\nYou need to see what you can of the nearby town from above the edge of the forest.';
+        //    this.goal.text = '...This scent...\nHe was injured.\nYou still haven\'t caught the scent of another dragon.\nYou need to see what you can of the nearby town from above the edge of the forest.';
             this.bloodDone = true;
             this.bloodVA.play();
         }
         
         if(this.eventTrigger(this.dragon, this.view) && this.printsDone == true && this.treeLineDone == true && this.bloodDone == true && this.viewDone == false)
         {
-            this.goal.text = 'It definitely looks like something has the town excited.\nYou\'re going to need to fly over.\nYou don\'t understand, why would the humans want your hatchling?\nYou\'ve always kept to yourself...';
+        //    this.goal.text = 'It definitely looks like something has the town excited.\nYou\'re going to need to fly over.\nYou don\'t understand, why would the humans want your hatchling?\nYou\'ve always kept to yourself...';
             this.viewDone = true;
             this.viewVA.play();
         }
