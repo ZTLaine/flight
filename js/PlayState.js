@@ -4,7 +4,7 @@ function PlayState(){};
 var PlayState = function(game)
 {
     var world;
-
+    var dragon;
 }
 
 PlayState.prototype =
