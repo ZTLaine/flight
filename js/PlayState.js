@@ -124,7 +124,7 @@ PlayState.prototype =
         
         if(this.dragon.body.onFloor())
         {
-            if(this.dragon.body.onFloor() && this.dragon.landed = false)
+            if(this.dragon.body.onFloor() && this.dragon.landed == false)
             {
                 console.log('Shit son we just landed');
             }
