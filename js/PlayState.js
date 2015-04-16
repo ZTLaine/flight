@@ -145,6 +145,12 @@ PlayState.prototype =
             if(this.dragon.body.onFloor() && this.landed == false)
             {
                 this.landed = true;
+                
+                if(this.dragon.body.velocity.y >= 200)
+                {
+                    console.log("Shit son you ded");
+                }
+                this.landedSound.volume = .5;
                 this.landedSound.play();
             }
             
