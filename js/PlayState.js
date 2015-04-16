@@ -221,9 +221,9 @@ PlayState.prototype =
             this.dragon.animations.play('takeOffRight');
         } 
         
-        if(this.dragon.body.velocity.y < 0)
+        if(this.dragon.body.velocity.y < this.flapHeight)
         {
-            if(this.dragon.body.velocity.y < this.flapHeight)
+            if(this.dragon.body.velocity.y < 0)
             {
                 this.dragon.body.velocity.y += (this.flapHeight);
                 //this.dragon.body.velocity.y += 10;
