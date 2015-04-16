@@ -63,7 +63,7 @@ PlayState.prototype =
         this.flap.onDown.add(this.flapWait, this);
         
         this.style = { font: "15px Arial", fill: "#ffffff", align: "center" };
-        this.goal = this.game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.', style);
+        this.goal = this.game.add.text(16, 16, 'Look around, see if you can see any \nclues that might help you find your hatchling.', this.style);
         this.goal.fixedToCamera = true;
         
         this.game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
