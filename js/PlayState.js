@@ -226,12 +226,12 @@ PlayState.prototype =
             if(this.dragon.body.velocity.y < 0)
             {
                 //this.dragon.body.velocity.y += (this.flapHeight);
-                this.dragon.body.velocity.y -= 100;
+                this.dragon.body.velocity.y -= 250;
             }
             else
             {
                 //this.dragon.body.velocity.y += this.flapHeight;
-                this.dragon.body.velocity.y -= 100;
+                this.dragon.body.velocity.y -= 250;
             }
             //this.dragon.body.velocity.y = this.flapHeight;
             
