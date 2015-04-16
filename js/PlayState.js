@@ -84,7 +84,7 @@ PlayState.prototype =
             this.treeLineDone = true;
         }
         
-        if(this.eventTrigger(this.dragon, blood) && this.printsDone == true && this.treeLineDone == true && this.bloodDone == false)
+        if(this.eventTrigger(this.dragon, this.blood) && this.printsDone == true && this.treeLineDone == true && this.bloodDone == false)
         {
             this.goal.text = '...This scent...\nHe was injured.\nYou still haven\'t caught the scent of another dragon.\nYou need to see what you can of the nearby town from above the edge of the forest.';
             this.bloodDone = true;
