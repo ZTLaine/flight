@@ -8,9 +8,12 @@ PreloadState.prototype =
     preload: function()
     {
         /* Set-up the loading bar */
-    /*        var loadingBar = this.add.sprite(400,300,"loading");
-            loadingBar.anchor.setTo(0.5,0.5);
-            this.load.setPreloadSprite(loadingBar); */
+        this.game.stage.backgroundColor = '#538C40';
+    	this.loading = this.game.add.sprite(this.game.world.centerX - 100, this.game.world.centerY - 100, 'load', 0);
+    	this.loading.animations.add('move', [0, 1, 2, 3], 5, true, true);
+    	this.loading.animations.play('move');
+        //this.loading.anchor.setTo(0.5,0.5);
+        //this.load.setPreloadSprite(loading); 
             
         /* Load tile map */
         this.game.load.tilemap('map', 'assets/flightForest.json', null, Phaser.Tilemap.TILED_JSON);
