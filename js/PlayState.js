@@ -233,7 +233,7 @@ PlayState.prototype =
         }
         else
         {
-            this.dragon.body.velocity.y += this.flapHeight;
+            this.dragon.body.velocity.y = this.flapHeight;
         }
         this.flapSound = this.game.add.audio('flapping');
         this.flapSound.play();
