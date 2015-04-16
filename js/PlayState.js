@@ -1,6 +1,9 @@
 "use strict";
 
 function PlayState(){};
+var PlayState = function(game){
+
+}
 
 PlayState.prototype =
 {
@@ -8,7 +11,7 @@ PlayState.prototype =
     {
         console.log("Play");
         
-        game.world.setBounds(0, 0, 3200, 1824);
+        this.game.world.setBounds(0, 0, 3200, 1824);
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
         
         //tilemap setup
