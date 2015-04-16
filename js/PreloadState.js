@@ -26,7 +26,7 @@ PreloadState.prototype =
         this.game.load.image('treeTops', 'assets/aboveTrees.png');
         this.game.load.image('bloodSmell', 'assets/blood.png');
         this.game.load.image('townView', 'assets/view.png');
-        this.game.load.image('forest', 'assets/forest_background_by_jbjdesigns-d5mgjm3.png');
+        this.game.load.image('forest', 'assets/forestBGfull.png');
 
         /* Load spritesheets */
         this.game.load.spritesheet('sindra', 'assets/dragonProtag1.png', 200, 150, 52);
