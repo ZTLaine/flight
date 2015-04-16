@@ -230,8 +230,8 @@ PlayState.prototype =
             }
             else
             {
-                this.dragon.body.velocity.y += this.flapHeight;
-                //this.dragon.body.velocity.y += 10;
+                //this.dragon.body.velocity.y += this.flapHeight;
+                this.dragon.body.velocity.y += 10;
             }
             
         }
