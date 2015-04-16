@@ -1,7 +1,9 @@
 "use strict";
 
 function PlayState(){};
-var PlayState = function(game){
+var PlayState = function(game)
+{
+    var world;
 
 }
 
