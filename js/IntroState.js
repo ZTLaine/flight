@@ -13,13 +13,13 @@ IntroState.prototype =
         
         //set the start variables for the game
         
-        
+        this.game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
     },
     
     update: function()
     {
         //wait for click input go to play
-        if(this.game.input.keyboard.isDown(Phaser.Keyboard.SPACE))
+        if(this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
         {
             this.game.state.start("play");
         }
