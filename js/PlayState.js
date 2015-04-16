@@ -17,7 +17,7 @@ var PlayState = function(game)
     this.bloodDone = false;
     this.viewDone = false;
     
-    this.goal;
+    //this.goal;
     this.style;
     
     this.gravity = 500;
