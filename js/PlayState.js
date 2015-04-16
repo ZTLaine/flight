@@ -38,7 +38,7 @@ PlayState.prototype =
         this.flapSound = this.game.add.audio('flapping');
         
         //character setup
-        this.dragon = this.game.add.sprite(32, game.world.height - 150, 'sindra');
+        this.dragon = this.game.add.sprite(32, this.game.world.height - 150, 'sindra');
         this.game.physics.arcade.enable(dragon);
         this.dragon.body.bounce.y = 0.2;
         this.dragon.body.gravity.y = this.gravity;
