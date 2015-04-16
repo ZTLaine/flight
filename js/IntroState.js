@@ -8,7 +8,6 @@ IntroState.prototype =
     create: function()
     {
         console.log("Intro");
-        this.game.world.setBounds(0, 0, 3200, 1824);
         
         var startScreen = this.game.add.sprite(0,0, 'startScreen');
         
