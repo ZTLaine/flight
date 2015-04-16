@@ -221,7 +221,7 @@ PlayState.prototype =
             this.dragon.animations.play('takeOffRight');
         } 
         
-        if(this.dragon.body.velocity.y < this.flapHeight)
+        if(this.dragon.body.velocity.y > this.flapHeight)
         {
             if(this.dragon.body.velocity.y < 0)
             {
@@ -233,11 +233,13 @@ PlayState.prototype =
                 //this.dragon.body.velocity.y += this.flapHeight;
                 this.dragon.body.velocity.y += 10;
             }
+            this.dragon.body.velocity.y = this.flapHeight;
             
         }
         else
         {
-            this.dragon.body.velocity.y = this.flapHeight;
+            //this.dragon.body.velocity.y = this.flapHeight;
+            this.dragon.body.velocity.y += flapHeight;
         }
         this.flapSound = this.game.add.audio('flapping');
         this.flapSound.play();
