@@ -8,7 +8,7 @@ PreloadState.prototype =
     preload: function()
     {
         /* Set-up the loading bar */
-    	this.loading = this.game.add.sprite(this.game.world.centerX-20, this.game.world.centerY-20, 'load', 0);
+    	this.loading = this.game.add.sprite(this.game.world.centerX + 100, this.game.world.centerY + 100, 'load', 0);
     	this.loading.animations.add('move', [0, 1, 2, 3], 5, true, true);
     	this.loading.animations.play('move');
         //this.loading.anchor.setTo(0.5,0.5);
