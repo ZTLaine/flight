@@ -51,7 +51,7 @@ PlayState.prototype =
         //tilemap setup
         this.map = this.game.add.tilemap('map');
         // map3 = game.add.tilemap('map');
-        this.map.addTilesetImage('forest_background_by_jbjdesigns-d5mgjm3', 'forest');
+        this.map.addTilesetImage('forestBGfull', 'forest');
         this.background = this.map.createLayer('forestBG');
         this.background.resizeWorld();
         this.game.stage.backgroundColor = '#2d2d2d';
