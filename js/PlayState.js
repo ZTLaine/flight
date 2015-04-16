@@ -127,6 +127,7 @@ PlayState.prototype =
             if(this.dragon.body.onFloor() && this.landed == false)
             {
                 console.log('Shit son we just landed');
+                this.landed = true;
             }
             
             if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
