@@ -5,6 +5,30 @@ var PlayState = function(game)
 {
     var world;
     var dragon;
+    var map;
+    
+    var prints;
+    var treeLine;
+    var blood;
+    var view;
+    
+    var printsDone = false;
+    var treeLineDone = false;
+    var bloodDone = false;
+    var viewDone = false;
+    
+    var goal;
+    var style;
+    
+    var gravity = 500;
+    var walkSpeed = 100;
+    var flySpeed = 350;
+    var baseJump = -100;
+    var flapHeight = -250;
+    
+    var flapSound;
+    var bgm;
+    var background;
 }
 
 PlayState.prototype =
