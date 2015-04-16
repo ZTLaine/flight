@@ -43,7 +43,7 @@ PlayState.prototype =
         this.dragon.body.bounce.y = 0.2;
         this.dragon.body.gravity.y = this.gravity;
         this.dragon.anchor.setTo(.5,.5);
-        this.game.camera.follow(dragon);
+        this.game.camera.follow(this.dragon);
         this.dragon.body.collideWorldBounds = true;
         this.dragon.scale.set(.75);
         
