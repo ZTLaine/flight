@@ -117,6 +117,8 @@ PlayState.prototype =
     {
         if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 50)
         {
+            this.dragon.animations.play('death');
+            
             console.log("Crashed!!");
         }
         if(this.eventTrigger(this.dragon, this.prints) && this.printsDone == false)
@@ -245,7 +247,7 @@ PlayState.prototype =
         else
         {
             //this.dragon.body.velocity.y = this.flapHeight;
-            this.dragon.body.velocity.y = flapHeight;
+            this.dragon.body.velocity.y = this.flapHeight;
         }
         this.flapSound = this.game.add.audio('flapping');
         this.flapSound.play();
