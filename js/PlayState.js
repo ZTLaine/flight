@@ -119,11 +119,11 @@ PlayState.prototype =
     
     update: function()
     {
-        if(timeCheck != 0)
+        if(this.timeCheck != 0)
         {
             this.dragon.frame = 31;
         }
-        if(game.time.now - timeCheck > 5000)
+        if(this.game.time.now - this.timeCheck > 5000)
         {
             this.game.state.start("intro");
         }
@@ -131,7 +131,7 @@ PlayState.prototype =
         if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 50 && this.alive == true)
         {
             this.dragon.frame = 31;
-            timeCheck = game.time.now;
+            this.timeCheck = this.game.time.now;
             console.log("Crashed!!");
             this.alive = false;
             
