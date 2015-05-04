@@ -125,6 +125,7 @@ PlayState.prototype =
         }
         if(this.timeCheck != 0 && this.game.time.now - this.timeCheck > 5000)
         {
+            this.timeCheck = 0;
             this.game.state.start("intro");
         }
         
