@@ -121,7 +121,7 @@ PlayState.prototype =
     {
         if(this.timeCheck != 0)
         {
-            this.dragon.frame = 31;
+            this.dragon.animations.play('death');
         }
         if(this.timeCheck != 0 && this.game.time.now - this.timeCheck > 5000)
         {
