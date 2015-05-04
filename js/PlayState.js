@@ -64,7 +64,7 @@ PlayState.prototype =
         
         //event trigger areas setup
         this.floorTest = this.game.add.sprite(0, (this.game.world.height - 6), 'floorTest');
-        this.floorTest.scale(2);
+        this.floorTest.scale.set(2);
         this.prints = this.game.add.sprite(1200, (this.game.world.height - 150), 'footPrints');
         this.treeLine = this.game.add.sprite(0, (this.game.world.height - 1050), 'treeTops');
         this.blood = this.game.add.sprite(3000, (this.game.world.height - 900), 'bloodSmell');
