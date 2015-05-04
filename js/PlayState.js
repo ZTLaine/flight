@@ -118,14 +118,14 @@ PlayState.prototype =
     
     update: function()
     {
-        while(this.alive == false)
+        if(this.alive == false)
         {
             //this.dragon.animations.play('death');
             this.dragon.frame = 31;
         }
         if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 50 && this.alive == true)
         {
-            this.dragon.animations.play('death');
+        //    this.dragon.animations.play('death');
             this.alive = false;
         }
         if(this.eventTrigger(this.dragon, this.prints) && this.printsDone == false)
