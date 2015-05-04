@@ -121,16 +121,16 @@ PlayState.prototype =
     {
         if(this.timeCheck != 0)
         {
-            
+            this.dragon.frame = 31;
         }
         if(this.timeCheck != 0 && this.game.time.now - this.timeCheck > 5000)
         {
             this.timeCheck = 0;
-            this.dragon.animations.play('death');
+           // this.dragon.animations.play('death');
             this.game.state.start("intro");
         }
         
-        if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 75 && this.alive == true)
+        if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 50 && this.alive == true)
         {
             this.dragon.frame = 31;
             this.timeCheck = this.game.time.now;
