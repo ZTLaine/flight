@@ -7,6 +7,7 @@ var PlayState = function(game)
     this.dragon;
     this.map;
     this.alive;
+    this.timeCheck = 0;
     
     this.floor;
     this.floorTest;
@@ -118,11 +119,20 @@ PlayState.prototype =
     
     update: function()
     {
+        if(timeCheck != 0)
+        {
+            this.dragon.frame = 31;
+        }
+        if(game.time.now - timeCheck > 5000)
+        {
+            this.game.state.start("intro");
+        }
+        
         if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 50 && this.alive == true)
         {
             this.dragon.frame = 31;
+            timeCheck = game.time.now;
             console.log("Crashed!!");
-            this.game.state.start("intro");
             this.alive = false;
             
         }
@@ -192,7 +202,10 @@ PlayState.prototype =
                 
                 // Stand still
                 this.dragon.animations.stop();
-                this.dragon.frame = 7;
+                if(this.alive == true)
+                {
+                    this.dragon.frame = 7;
+                }
             }
         }
         
