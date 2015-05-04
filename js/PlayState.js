@@ -121,6 +121,7 @@ PlayState.prototype =
         if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 50 && this.alive == true)
         {
             this.dragon.frame = 31;
+            console.log("Crashed!!");
             this.game.state.start("intro");
             this.alive = false;
             
