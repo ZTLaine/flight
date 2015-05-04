@@ -21,7 +21,6 @@ IntroState.prototype =
         //wait for click input go to play
         if(this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
         {
-            this.timeCheck = 0;
             this.game.state.start("play");
         }
     }
