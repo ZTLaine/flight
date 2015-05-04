@@ -7,6 +7,8 @@ var PlayState = function(game)
     this.dragon;
     this.map;
     
+    this.floor;
+    this.floorTest;
     this.prints;
     this.treeLine;
     this.blood;
@@ -57,6 +59,7 @@ PlayState.prototype =
         this.game.stage.backgroundColor = '#2d2d2d';
         
         //event trigger areas setup
+        this.floorTest = this.game.add.sprite(0, (this.game.world.height - 1822), 'floorTest');
         this.prints = this.game.add.sprite(1200, (this.game.world.height - 150), 'footPrints');
         this.treeLine = this.game.add.sprite(0, (this.game.world.height - 1050), 'treeTops');
         this.blood = this.game.add.sprite(3000, (this.game.world.height - 900), 'bloodSmell');
