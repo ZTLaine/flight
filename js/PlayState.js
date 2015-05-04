@@ -313,6 +313,7 @@ PlayState.prototype =
     
     render: function()
     {
+        this.game.debug.bodyInfo(this.dragon, 32, 32);
         this.game.debug.body(this.dragon);
     }
     
