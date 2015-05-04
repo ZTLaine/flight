@@ -123,7 +123,7 @@ PlayState.prototype =
         {
             this.dragon.frame = 31;
         }
-        if(this.timeCheck != 0 && this.game.time.now - this.timeCheck > 5000
+        if(this.timeCheck != 0 && this.game.time.now - this.timeCheck > 5000)
         {
             this.game.state.start("intro");
         }
