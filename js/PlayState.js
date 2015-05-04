@@ -130,7 +130,7 @@ PlayState.prototype =
             this.game.state.start("intro");
         }
         
-        if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 100 && this.alive == true)
+        if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 400 && this.alive == true)
         {
             this.dragon.frame = 31;
             this.timeCheck = this.game.time.now;
