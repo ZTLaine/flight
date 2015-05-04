@@ -123,7 +123,7 @@ PlayState.prototype =
             //this.dragon.animations.play('death');
             this.dragon.frame = 31;
         }
-        if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 50)
+        if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 50 && this.alive == true)
         {
             this.dragon.animations.play('death');
             this.alive = false;
