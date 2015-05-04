@@ -115,7 +115,7 @@ PlayState.prototype =
     
     update: function()
     {
-        if(this.eventTrigger(this.dragon, this.floorCollideTest) && this.dragon.body.velocity.y > 50)
+        if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 50)
         {
             console.log("Crashed!!");
         }
