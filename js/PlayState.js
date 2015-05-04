@@ -115,6 +115,10 @@ PlayState.prototype =
     
     update: function()
     {
+        if(this.eventTrigger(this.dragon, this.floorCollideTest) && this.dragon.body.velocity.y > 50)
+        {
+            console.log("Crashed!!");
+        }
         if(this.eventTrigger(this.dragon, this.prints) && this.printsDone == false)
         {
         //    this.goal.text = 'Look at this mess of footprints!\nYou are unable to discern what made the tracks,\nbut it looks like your home had unexpected company.\nTake to the air.  If it was another dragon (or he escaped)\nyou should be able to see him once you clear the trees.';
