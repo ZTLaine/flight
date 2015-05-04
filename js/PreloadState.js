@@ -22,6 +22,8 @@ PreloadState.prototype =
         this.game.load.image("startScreen", "assets/startScreen.png");
         //this.game.load.image("victoryScreen", "assets/victoryScreen.png");
         
+        this.game.load.image('floor', 'assets/floorCollide.png');
+        this.game.load.image('floorTest', 'assets/floorCollideTest.png');
         this.game.load.image('footPrints', 'assets/prints.png');
         this.game.load.image('treeTops', 'assets/aboveTrees.png');
         this.game.load.image('bloodSmell', 'assets/blood.png');
