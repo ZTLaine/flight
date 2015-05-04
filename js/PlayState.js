@@ -6,6 +6,7 @@ var PlayState = function(game)
     this.world;
     this.dragon;
     this.map;
+    this.alive;
     
     this.floor;
     this.floorTest;
@@ -46,6 +47,8 @@ PlayState.prototype =
     create: function()
     {
         console.log("Play");
+        
+        this.alive = true;
         
         this.game.world.setBounds(0, 0, 3200, 1824);
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
@@ -115,9 +118,15 @@ PlayState.prototype =
     
     update: function()
     {
+        while(this.alive == false)
+        {
+            this.dragon.frame = 31;
+            
+        }
         if(this.eventTrigger(this.dragon, this.floorTest) && this.dragon.body.velocity.y > 50)
         {
             this.dragon.animations.play('death');
+            this.alive = false;
             
             console.log("Crashed!!");
         }
