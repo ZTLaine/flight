@@ -63,7 +63,7 @@ PlayState.prototype =
         this.game.stage.backgroundColor = '#2d2d2d';
         
         //event trigger areas setup
-        this.floorTest = this.game.add.sprite(0, (this.game.world.height - 6), 'floorTest');
+        this.floorTest = this.game.add.sprite(0, (this.game.world.height - 6), 'floor');
         this.floorTest.scale.set(2);
         this.prints = this.game.add.sprite(1200, (this.game.world.height - 150), 'footPrints');
         this.treeLine = this.game.add.sprite(0, (this.game.world.height - 1050), 'treeTops');
